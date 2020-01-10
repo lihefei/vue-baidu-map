@@ -1,0 +1,1 @@
+export const isPoint = point => (point.lng >= -180 && point.lng <= 180) && (point.lng >= -90 && point.lng <= 90);
