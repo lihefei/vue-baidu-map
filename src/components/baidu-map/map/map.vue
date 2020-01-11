@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import bindEvents from './base/bind-event';
+import bindEvents from '../base/bind-event';
 export default {
     name: 'bm-map',
     components: {},
@@ -70,7 +70,10 @@ export default {
     watch: {
         center: function(val, oldVal) {
             const { map } = this;
-            if (Object.prototype.toString.call(val).includes('String') && val !== oldVal) {
+            if (
+                Object.prototype.toString.call(val).includes('String') &&
+                val !== oldVal
+            ) {
                 map.setCenter(val);
             }
         },
@@ -202,16 +205,33 @@ export default {
             this.$emit('ready', { BMap, map });
         },
         setMapOptions() {
-            const { map, minZoom, maxZoom, mapType, dragging, inertialDragging, scrollWheelZoom, doubleClickZoom, pinchToZoom, autoResize } = this;
+            const {
+                map,
+                minZoom,
+                maxZoom,
+                mapType,
+                dragging,
+                inertialDragging,
+                scrollWheelZoom,
+                doubleClickZoom,
+                pinchToZoom,
+                autoResize
+            } = this;
 
             minZoom && map.setMinZoom(minZoom);
             maxZoom && map.setMaxZoom(maxZoom);
             mapType && map.setMapType(global[mapType]);
             dragging ? map.enableDragging() : map.disableDragging();
-            scrollWheelZoom ? map.enableScrollWheelZoom() : map.disableScrollWheelZoom();
-            doubleClickZoom ? map.enableDoubleClickZoom() : map.disableDoubleClickZoom();
+            scrollWheelZoom
+                ? map.enableScrollWheelZoom()
+                : map.disableScrollWheelZoom();
+            doubleClickZoom
+                ? map.enableDoubleClickZoom()
+                : map.disableDoubleClickZoom();
 
-            inertialDragging ? map.enableInertialDragging() : map.disableInertialDragging();
+            inertialDragging
+                ? map.enableInertialDragging()
+                : map.disableInertialDragging();
 
             pinchToZoom ? map.enablePinchToZoom() : map.disablePinchToZoom();
             autoResize ? map.enableAutoResize() : map.disableAutoResize();

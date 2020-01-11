@@ -32,10 +32,20 @@ export default {
         'bm-polygon': BuiduMapPolygon
     },
     mixins: [commonMixin('abstract')],
-    props: ['name', 'strokeColor', 'fillColor', 'strokeWeight', 'strokeOpacity', 'fillOpacity', 'strokeStyle', 'massClear', 'editing', 'clicking'],
+    props: [
+        'name',
+        'strokeColor',
+        'fillColor',
+        'strokeWeight',
+        'strokeOpacity',
+        'fillOpacity',
+        'strokeStyle',
+        'massClear',
+        'editing',
+        'clicking'
+    ],
     data() {
         return {
-            test: [1, 2, 3],
             paths: []
         };
     },
@@ -63,7 +73,6 @@ export default {
                     });
                 });
             });
-
         }
     }
 };

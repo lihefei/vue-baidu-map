@@ -15,7 +15,7 @@
 
 <script>
 export default {
-    name: 'mapPopover',
+    name: 'popover',
     components: {},
     props: {
         visible:  {
