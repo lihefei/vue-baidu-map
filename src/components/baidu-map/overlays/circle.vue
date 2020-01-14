@@ -21,17 +21,17 @@ export default {
     },
     watch: {
         'center.lng': function(val, oldVal) {
-            const { BMap, position, originInstance } = this;
+            const { BMap, center, originInstance } = this;
             if (val !== oldVal && val >= -180 && val <= 180) {
-                let point = createPoint(BMap, { lng: val, lat: position.lat });
-                originInstance.setPosition(point);
+                let point = createPoint(BMap, { lng: val, lat: center.lat });
+                originInstance.setCenter(point);
             }
         },
         'center.lat': function(val, oldVal) {
-            const { BMap, position, originInstance } = this;
+            const { BMap, center, originInstance } = this;
             if (val !== oldVal && val >= -90 && val <= 90) {
-                let point = createPoint(BMap, { lng: position.lng, lat: val });
-                originInstance.setPosition(point);
+                let point = createPoint(BMap, { lng: center.lng, lat: val });
+                originInstance.setCenter(point);
             }
         },
         radius(val, oldVal) {
