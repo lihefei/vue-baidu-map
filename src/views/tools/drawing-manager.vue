@@ -18,7 +18,6 @@
                     :map="map"
                     :BMap="BMap"
                     :type="drawType"
-                    :draws="['hander', 'circle', 'rectangle']"
                     @click="drawClick"
                     @drawcomplete="drawComplete"
                 ></bm-drawing-manager>
@@ -51,6 +50,12 @@ export default {
         };
     },
     watch: {},
+    beforeDestroy() {
+        this.map.removeEventListener('mousedown', this.mouseDown);
+        this.map.removeEventListener('mousemove', this.mouseMove);
+        this.map.removeEventListener('mouseup', this.mouseUp);
+        this.map.removeEventListener('rightclick', this.exitDraw);
+    },
 
     methods: {
         mapReady({ BMap, map }) {

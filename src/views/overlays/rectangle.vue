@@ -18,7 +18,6 @@
             :dragging="true"
             :diting="true"
             :clicking="true"
-            @click="clickMap"
         />
     </baidu-map>
 </template>

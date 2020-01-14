@@ -11,7 +11,6 @@
             shape="BMAP_POINT_SHAPE_STAR"
             size="BMAP_POINT_SIZE_BIG"
             color="red"
-            @click="clickMap"
         />
     </baidu-map>
 </template>

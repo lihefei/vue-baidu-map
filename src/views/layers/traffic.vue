@@ -6,18 +6,24 @@
         :zoom="zoom"
         @ready="mapReady"
     >
+        <bm-control anchor="BMAP_ANCHOR_TOP_LEFT">
+            <button @click="trafficVisible = !trafficVisible">切换显示</button>
+        </bm-control>
+
         <bm-traffic v-if="trafficVisible" />
     </baidu-map>
 </template>
 <script>
 import BuiduMap from '@/components/baidu-map/map/map'; //地图
 import BuiduTraffic from '@/components/baidu-map/layers/traffic'; //路况叠加层
+import BuiduControl from '@/components/baidu-map/controls/control'; //自定义版权控制层
 
 export default {
     name: '',
     components: {
         'baidu-map': BuiduMap,
-        'bm-traffic': BuiduTraffic
+        'bm-traffic': BuiduTraffic,
+        'bm-control': BuiduControl
     },
     data() {
         return {

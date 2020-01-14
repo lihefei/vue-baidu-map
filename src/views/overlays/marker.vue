@@ -11,6 +11,7 @@
             :rotation="180"
             :icon="icon"
             :dragging="true"
+            :label="{content: 'xxxxxx'}"
             @click="clickMap"
         />
     </baidu-map>

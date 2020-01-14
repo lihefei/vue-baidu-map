@@ -1,7 +1,12 @@
 <script>
 import commonMixin from '../base/mixins/common';
 import bindEvents from '../base/bind-event';
-import { createSize, createIcon, createPoint } from '../base/factory';
+import {
+    createSize,
+    createIcon,
+    createPoint,
+    createLabel
+} from '../base/factory';
 export default {
     name: 'bm-marker',
     render() {},
@@ -37,7 +42,8 @@ export default {
         zIndex: {
             type: Number,
             default: 0
-        }
+        },
+        label: Object
     },
     watch: {
         'position.lng': function(val, oldVal) {
@@ -76,14 +82,20 @@ export default {
             handler(val) {
                 const { BMap, originInstance, rotation } = this;
                 originInstance && originInstance.setIcon(createIcon(BMap, val));
-                originInstance && rotation && originInstance.setRotation(rotation);
+                originInstance &&
+                    rotation &&
+                    originInstance.setRotation(rotation);
             }
         },
         massClear(val) {
-            val ? this.originInstance.enableMassClear() : this.originInstance.disableMassClear();
+            val
+                ? this.originInstance.enableMassClear()
+                : this.originInstance.disableMassClear();
         },
         dragging(val) {
-            val ? this.originInstance.enableDragging() : this.originInstance.disableDragging();
+            val
+                ? this.originInstance.enableDragging()
+                : this.originInstance.disableDragging();
         },
         clicking() {
             this.reload();
@@ -108,6 +120,9 @@ export default {
         },
         zIndex(val) {
             this.originInstance.setZIndex(val);
+        },
+        label() {
+            this.reload();
         }
     },
     mounted() {},
@@ -127,7 +142,8 @@ export default {
                 shadow,
                 title,
                 top,
-                zIndex
+                zIndex,
+                label
             } = this;
             const { BMap, map } = $parent;
             this.BMap = BMap;
@@ -147,6 +163,7 @@ export default {
             });
 
             this.originInstance = overlay;
+            label && overlay && overlay.setLabel(createLabel(BMap, label));
             overlay.setTop(top);
             overlay.setZIndex(zIndex);
             bindEvents.call(this, overlay);
