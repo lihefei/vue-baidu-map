@@ -99,6 +99,18 @@
                     </li>
 
                     <li class="submenu">
+                        <div class="submenu-title">右键菜单</div>
+                        <ul>
+                            <li>
+                                <router-link to="/contextMenu/contextMenu">菜单</router-link>
+                            </li>
+                            <li>
+                                <router-link to="/contextMenu/contextMenuItem">菜单项</router-link>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="submenu">
                         <div class="submenu-title">工具</div>
                         <ul>
                             <li>

@@ -137,6 +137,17 @@ const routes = [
             },
 
             {
+                path: '/contextMenu/contextMenu',
+                name: 'contextMenu',
+                component: () => import('@/views/context-menu/context-menu.vue')
+            },
+            {
+                path: '/contextMenu/contextMenuItem',
+                name: 'contextMenuItem',
+                component: () => import('@/views/context-menu/context-menu-item.vue')
+            },
+
+            {
                 path: '/tools/drawingManager',
                 name: 'drawingManager',
                 component: () => import('@/views/tools/drawing-manager.vue')

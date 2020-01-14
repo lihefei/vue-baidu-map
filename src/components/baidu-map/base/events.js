@@ -49,5 +49,6 @@ export default {
     'bm-auto-complete': ['onconfirm', 'onhighlight'],
     'bm-point-collection': ['click', 'mouseover', 'mouseout'],
     'bm-geolocation': ['locationSuccess', 'locationError'],
-    'bm-overview-map': ['viewchanged', 'viewchanging']
+    'bm-overview-map': ['viewchanged', 'viewchanging'],
+    'bm-context-menu': ['open', 'close']
 };

@@ -1,3 +1,8 @@
+<template>
+    <div>
+        <slot></slot>
+    </div>
+</template>
 <script>
 import commonMixin from '../base/mixins/common';
 import bindEvents from '../base/bind-event';
@@ -9,7 +14,6 @@ import {
 } from '../base/factory';
 export default {
     name: 'bm-marker',
-    render() {},
     mixins: [commonMixin('overlay')],
     props: {
         position: {},
