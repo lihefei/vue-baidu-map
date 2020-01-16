@@ -21,13 +21,13 @@
     </baidu-map>
 </template>
 <script>
-import BuiduMap from '@/components/baidu-map/map/map'; //地图
+import BaiduMap from '@/components/baidu-map/map/map'; //地图
 import BuiduBoundary from '@/components/baidu-map/overlays/boundary'; //行政区域覆盖物
 
 export default {
     name: '',
     components: {
-        'baidu-map': BuiduMap,
+        'baidu-map': BaiduMap,
         'bm-boundary': BuiduBoundary
     },
     data() {

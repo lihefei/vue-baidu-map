@@ -61,17 +61,17 @@
 </template>
 <script>
 import BuiduDrawingIcon from './drawing-icon'; //图形绘制工具
-import BuiduMapPolyline from '@/components/baidu-map/overlays/polyline'; //线条覆盖物
-import BuiduMapCircle from '@/components/baidu-map/overlays/circle'; //圆型覆盖物
-import BuiduMapPolygon from '@/components/baidu-map/overlays/polygon'; //多边形覆盖物
+import BaiduMapPolyline from '@/components/baidu-map/overlays/polyline'; //线条覆盖物
+import BaiduMapCircle from '@/components/baidu-map/overlays/circle'; //圆型覆盖物
+import BaiduMapPolygon from '@/components/baidu-map/overlays/polygon'; //多边形覆盖物
 
 export default {
     name: 'drawing-manager',
     components: {
         'bm-drawing-icon': BuiduDrawingIcon,
-        'bm-circle': BuiduMapCircle,
-        'bm-polyline': BuiduMapPolyline,
-        'bm-polygon': BuiduMapPolygon
+        'bm-circle': BaiduMapCircle,
+        'bm-polyline': BaiduMapPolyline,
+        'bm-polygon': BaiduMapPolygon
     },
     props: {
         BMap: Object,

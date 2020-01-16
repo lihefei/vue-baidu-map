@@ -31,7 +31,7 @@
     </baidu-map>
 </template>
 <script>
-import BuiduMap from '@/components/baidu-map/map/map'; //地图
+import BaiduMap from '@/components/baidu-map/map/map'; //地图
 import BuiduOverlay from '@/components/baidu-map/overlays/overlay'; //自定义覆盖物
 import Popover from './components/popover'; //自定义气泡
 import DeviceInfo from './components/device-info'; //设备信息
@@ -39,7 +39,7 @@ import DeviceInfo from './components/device-info'; //设备信息
 export default {
     name: '',
     components: {
-        'baidu-map': BuiduMap,
+        'baidu-map': BaiduMap,
         'bm-overlay': BuiduOverlay,
         Popover,
         DeviceInfo

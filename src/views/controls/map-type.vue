@@ -10,14 +10,14 @@
     </baidu-map>
 </template>
 <script>
-import BuiduMap from '@/components/baidu-map/map/map'; //地图
-import BuiduMapType from '@/components/baidu-map/controls/map-type'; //地图类型控制层
+import BaiduMap from '@/components/baidu-map/map/map'; //地图
+import BaiduMapType from '@/components/baidu-map/controls/map-type'; //地图类型控制层
 
 export default {
     name: '',
     components: {
-        'baidu-map': BuiduMap,
-        'bm-map-type': BuiduMapType
+        'baidu-map': BaiduMap,
+        'bm-map-type': BaiduMapType
     },
     data() {
         return {

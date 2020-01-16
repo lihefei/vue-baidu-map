@@ -21,14 +21,14 @@
     </baidu-map>
 </template>
 <script>
-import BuiduMap from '@/components/baidu-map/map/map'; //地图
+import BaiduMap from '@/components/baidu-map/map/map'; //地图
 import BuiduControl from '@/components/baidu-map/controls/control'; //自定义控制层
 import BuiduLocalSearch from '@/components/baidu-map/search/local-search'; //本地搜索
 
 export default {
     name: '',
     components: {
-        'baidu-map': BuiduMap,
+        'baidu-map': BaiduMap,
         'bm-control': BuiduControl,
         'bm-local-search': BuiduLocalSearch
     },

@@ -10,12 +10,12 @@
     ></baidu-map>
 </template>
 <script>
-import BuiduMap from '@/components/baidu-map/map/map'; //地图
+import BaiduMap from '@/components/baidu-map/map/map'; //地图
 
 export default {
     name: 'baiduMap',
     components: {
-        'baidu-map': BuiduMap
+        'baidu-map': BaiduMap
     },
     data() {
         return {

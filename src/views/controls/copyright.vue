@@ -10,13 +10,13 @@
     </baidu-map>
 </template>
 <script>
-import BuiduMap from '@/components/baidu-map/map/map'; //地图
+import BaiduMap from '@/components/baidu-map/map/map'; //地图
 import BuiduCopyright from '@/components/baidu-map/controls/copyright'; //版权控制层
 
 export default {
     name: '',
     components: {
-        'baidu-map': BuiduMap,
+        'baidu-map': BaiduMap,
         'bm-copyright': BuiduCopyright
     },
     data() {

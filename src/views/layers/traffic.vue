@@ -14,14 +14,14 @@
     </baidu-map>
 </template>
 <script>
-import BuiduMap from '@/components/baidu-map/map/map'; //地图
+import BaiduMap from '@/components/baidu-map/map/map'; //地图
 import BuiduTraffic from '@/components/baidu-map/layers/traffic'; //路况叠加层
 import BuiduControl from '@/components/baidu-map/controls/control'; //自定义版权控制层
 
 export default {
     name: '',
     components: {
-        'baidu-map': BuiduMap,
+        'baidu-map': BaiduMap,
         'bm-traffic': BuiduTraffic,
         'bm-control': BuiduControl
     },

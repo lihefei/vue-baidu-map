@@ -10,13 +10,13 @@
     </baidu-map>
 </template>
 <script>
-import BuiduMap from '@/components/baidu-map/map/map'; //地图
+import BaiduMap from '@/components/baidu-map/map/map'; //地图
 import BuiduOverviewMap from '@/components/baidu-map/controls/overview-map'; //缩略图控制层
 
 export default {
     name: '',
     components: {
-        'baidu-map': BuiduMap,
+        'baidu-map': BaiduMap,
         'bm-overview-map': BuiduOverviewMap
     },
     data() {

@@ -22,14 +22,14 @@
     </baidu-map>
 </template>
 <script>
-import BuiduMap from '@/components/baidu-map/map/map'; //地图
-import BuiduMapPolygon from '@/components/baidu-map/overlays/polygon'; //多边形覆盖物
+import BaiduMap from '@/components/baidu-map/map/map'; //地图
+import BaiduMapPolygon from '@/components/baidu-map/overlays/polygon'; //多边形覆盖物
 
 export default {
     name: '',
     components: {
-        'baidu-map': BuiduMap,
-        'bm-polygon': BuiduMapPolygon
+        'baidu-map': BaiduMap,
+        'bm-polygon': BaiduMapPolygon
     },
     data() {
         return {

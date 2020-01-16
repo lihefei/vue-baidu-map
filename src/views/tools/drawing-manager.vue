@@ -26,14 +26,14 @@
     </div>
 </template>
 <script>
-import BuiduMap from '@/components/baidu-map/map/map'; //地图
+import BaiduMap from '@/components/baidu-map/map/map'; //地图
 import BuiduControl from '@/components/baidu-map/controls/control'; //自定义版权控制层
 import BuiduDrawingManager from '@/components/baidu-map/tools/drawing-manager/drawing-manager'; //图形绘制工具
 
 export default {
     name: '',
     components: {
-        'baidu-map': BuiduMap,
+        'baidu-map': BaiduMap,
         'bm-control': BuiduControl,
         'bm-drawing-manager': BuiduDrawingManager
     },

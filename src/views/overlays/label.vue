@@ -4,14 +4,14 @@
     </baidu-map>
 </template>
 <script>
-import BuiduMap from '@/components/baidu-map/map/map'; //地图
-import BuiduMapLabel from '@/components/baidu-map/overlays/label'; //标签覆盖物
+import BaiduMap from '@/components/baidu-map/map/map'; //地图
+import BaiduMapLabel from '@/components/baidu-map/overlays/label'; //标签覆盖物
 
 export default {
     name: '',
     components: {
-        'baidu-map': BuiduMap,
-        'bm-label': BuiduMapLabel
+        'baidu-map': BaiduMap,
+        'bm-label': BaiduMapLabel
     },
     data() {
         return {

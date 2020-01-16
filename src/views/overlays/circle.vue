@@ -17,14 +17,14 @@
     </baidu-map>
 </template>
 <script>
-import BuiduMap from '@/components/baidu-map/map/map'; //地图
-import BuiduMapCircle from '@/components/baidu-map/overlays/circle'; //圆型覆盖物
+import BaiduMap from '@/components/baidu-map/map/map'; //地图
+import BaiduMapCircle from '@/components/baidu-map/overlays/circle'; //圆型覆盖物
 
 export default {
     name: '',
     components: {
-        'baidu-map': BuiduMap,
-        'bm-circle': BuiduMapCircle
+        'baidu-map': BaiduMap,
+        'bm-circle': BaiduMapCircle
     },
     data() {
         return {

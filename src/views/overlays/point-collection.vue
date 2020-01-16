@@ -15,13 +15,13 @@
     </baidu-map>
 </template>
 <script>
-import BuiduMap from '@/components/baidu-map/map/map'; //地图
+import BaiduMap from '@/components/baidu-map/map/map'; //地图
 import BuiduPointCollection from '@/components/baidu-map/overlays/point-collection'; //海量点覆盖物
 
 export default {
     name: '',
     components: {
-        'baidu-map': BuiduMap,
+        'baidu-map': BaiduMap,
         'bm-point-collection': BuiduPointCollection
     },
     data() {

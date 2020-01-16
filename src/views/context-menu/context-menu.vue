@@ -22,18 +22,18 @@
     </baidu-map>
 </template>
 <script>
-import BuiduMap from '@/components/baidu-map/map/map'; //地图
+import BaiduMap from '@/components/baidu-map/map/map'; //地图
 import BuiduContextMenu from '@/components/baidu-map/context-menu/menu'; //菜单
 import BuiduContextMenuItem from '@/components/baidu-map/context-menu/item'; //菜单项
-import BuiduMapMarker from '@/components/baidu-map/overlays/marker'; //marker标记
+import BaiduMapMarker from '@/components/baidu-map/overlays/marker'; //marker标记
 
 export default {
     name: '',
     components: {
-        'baidu-map': BuiduMap,
+        'baidu-map': BaiduMap,
         'bm-context-menu': BuiduContextMenu,
         'bm-context-menu-item': BuiduContextMenuItem,
-        'bm-marker': BuiduMapMarker
+        'bm-marker': BaiduMapMarker
     },
     data() {
         return {

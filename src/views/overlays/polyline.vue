@@ -20,14 +20,14 @@
     </baidu-map>
 </template>
 <script>
-import BuiduMap from '@/components/baidu-map/map/map'; //地图
-import BuiduMapPolyline from '@/components/baidu-map/overlays/polyline'; //线条覆盖物
+import BaiduMap from '@/components/baidu-map/map/map'; //地图
+import BaiduMapPolyline from '@/components/baidu-map/overlays/polyline'; //线条覆盖物
 
 export default {
     name: '',
     components: {
-        'baidu-map': BuiduMap,
-        'bm-polyline': BuiduMapPolyline
+        'baidu-map': BaiduMap,
+        'bm-polyline': BaiduMapPolyline
     },
     data() {
         return {

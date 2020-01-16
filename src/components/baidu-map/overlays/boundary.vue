@@ -24,12 +24,12 @@
 </template>
 
 <script>
-import BuiduMapPolygon from '../overlays/polygon';
+import BaiduMapPolygon from '../overlays/polygon';
 import commonMixin from '../base/mixins/common';
 export default {
     name: 'bm-boundary',
     components: {
-        'bm-polygon': BuiduMapPolygon
+        'bm-polygon': BaiduMapPolygon
     },
     mixins: [commonMixin('abstract')],
     props: [
