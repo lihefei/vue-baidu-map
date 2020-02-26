@@ -23,13 +23,16 @@ export function createBounds(BMap, options = {}) {
 }
 
 export function createLabel(BMap, options = {}) {
-    let { content, opts } = options;
-    return new BMap.Label(
+    let { content, opts, labelStyle } = options;
+    let label = new BMap.Label(
         content,
         opts && {
             offset: opts.offset && createSize(BMap, opts.offset),
             position: opts.position && createPoint(BMap, opts.position),
-            enableMassClear: massClear && opts.massClear
+            enableMassClear: opts.massClear && opts.massClear
         }
     );
+
+    labelStyle && label.setStyle(labelStyle);
+    return label;
 }

@@ -14,6 +14,15 @@
             :label="{content: 'xxxxxx'}"
             @click="clickMap"
         />
+
+        <bm-marker
+            :position="center2"
+            :rotation="180"
+            :icon="icon"
+            :dragging="true"
+            :label="{content: '用户张三', opts: {offset: {width: 24, height: -18, labelStyle}}}"
+            @click="clickMap"
+        />
     </baidu-map>
 </template>
 <script>
@@ -29,7 +38,7 @@ export default {
     data() {
         return {
             center: { lng: 108.640996, lat: 19.065555 },
-
+            center2: { lng: 108.660996, lat: 19.065555 },
             zoom: 16,
             icon: {
                 url: require('@/assets/position.png'),
@@ -37,6 +46,14 @@ export default {
                     width: 48,
                     height: 48
                 }
+            },
+            labelStyle: {
+                padding: '2px 8px 3px',
+                border: 0,
+                borderRadius: '2px',
+                color: '#fff',
+                backgroundColor: 'rgba(0,0,0, .5)',
+                transform: 'translate(-50%, 0)'
             }
         };
     },
