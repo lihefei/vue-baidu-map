@@ -3,23 +3,29 @@
         <baidu-map
             ref="BDMap"
             ak="S7gxefmASouTllUyjE71hWV3"
-            :center="mapCfg.center"
-            :zoom="mapCfg.zoom"
-            :dragging="mapCfg.dragging"
+            :center="mapConfig.center"
+            :zoom="mapConfig.zoom"
+            :dragging="mapConfig.dragging"
             @ready="mapReady"
-            @mousedown="mouseDown"
-            @mousemove="mouseMove"
-            @mouseup="mouseUp"
-            @rightclick="exitDraw"
+            @mousedown="mapMouseDown"
+            @mousemove="mapMouseMove"
+            @mouseup="mapMouseUp"
+            @rightclick="mapRightClick"
         >
             <bm-control anchor="BMAP_ANCHOR_TOP_LEFT">
                 <bm-drawing-manager
                     ref="drawingManager"
                     :map="map"
                     :BMap="BMap"
-                    :type="drawType"
-                    @click="drawClick"
-                    @drawcomplete="drawComplete"
+                    :drawingType="mapConfig.drawingType"
+                    :default-drawing="mapConfig.defaultDrawing"
+                    :show-tips="true"
+                    @click="drawingClick"
+                    @circlecomplete="circleComplete"
+                    @rectanglecomplete="rectangleComplete"
+                    @polygoncomplete="polygonComplete"
+                    @polylinecomplete="polylineComplete"
+                    @drawingcomplete="drawingComplete"
                 ></bm-drawing-manager>
             </bm-control>
         </baidu-map>
@@ -39,54 +45,65 @@ export default {
     },
     data() {
         return {
-            mapCfg: {
+            map: null,
+            BMap: null,
+            mapConfig: {
                 center: { lng: 108.640996, lat: 19.065555 },
                 zoom: 16,
-                dragging: true
-            },
-            drawType: 'circle',
-            map: null,
-            BMap: null
+                dragging: true,
+                drawingType: 'circle', //'polygon', 'rectangle', 'polyline'
+                defaultDrawing : {
+                    center: { lng: 108.640996, lat: 19.065555 },
+                    radius: 500,
+                    path: [{"lng":108.638571,"lat":19.071193},{"lng":108.646979,"lat":19.071193},{"lng":108.646979,"lat":19.067571},{"lng":108.638571,"lat":19.067571}]
+                }
+            }
         };
     },
     watch: {},
     beforeDestroy() {
-        this.map.removeEventListener('mousedown', this.mouseDown);
-        this.map.removeEventListener('mousemove', this.mouseMove);
-        this.map.removeEventListener('mouseup', this.mouseUp);
-        this.map.removeEventListener('rightclick', this.exitDraw);
+        this.map.removeEventListener('mousedown', this.mapMouseDown);
+        this.map.removeEventListener('mousemove', this.mapMouseMove);
+        this.map.removeEventListener('mouseup', this.mapMouseUp);
+        this.map.removeEventListener('rightclick', this.exitDrawing);
     },
 
     methods: {
         mapReady({ BMap, map }) {
             this.map = map;
             this.BMap = BMap;
-            this.mapCfg.dragging = this.isHander();
-
-            console.log(BMap, map);
         },
-        mouseDown(e) {
-            this.$refs.drawingManager.mouseDown(e);
+        mapMouseDown(e) {
+            this.$refs.drawingManager.mapMouseDown(e);
         },
-        mouseMove(e) {
-            this.$refs.drawingManager.mouseMove(e);
+        mapMouseMove(e) {
+            this.$refs.drawingManager.mapMouseMove(e);
         },
 
-        mouseUp(e) {
-            this.$refs.drawingManager.mouseUp(e);
+        mapMouseUp(e) {
+            this.$refs.drawingManager.mapMouseUp(e);
         },
-        exitDraw() {
-            this.$refs.drawingManager.exitDraw();
+        mapRightClick() {
+            this.$refs.drawingManager.mapRightClick();
         },
-        drawClick(type) {
-            this.drawType = type;
-            this.mapCfg.dragging = type === 'hander';
+        drawingClick(type) {
+            //this.mapConfig.dragging = (type === 'hander');
         },
-        drawComplete(obj) {
-            console.log(obj);
+        
+        circleComplete(data) {
+            console.log(data);
         },
-        isHander() {
-            return this.drawType === 'hander';
+        rectangleComplete(data) {
+            console.log(data);
+        },
+        polygonComplete(data) {
+            console.log(data);
+        },
+        polylineComplete(data) {
+            console.log(data);
+        },
+        drawingComplete(data) {
+            console.log(JSON.stringify(data));
         }
     }
 };

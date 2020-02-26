@@ -151,6 +151,11 @@ const routes = [
                 path: '/tools/drawingManager',
                 name: 'drawingManager',
                 component: () => import('@/views/tools/drawing-manager.vue')
+            },
+            {
+                path: '/tools/toolWrapper',
+                name: 'toolWrapper',
+                component: () => import('@/views/tools/tool-wrapper.vue')
             }
         ]
     }

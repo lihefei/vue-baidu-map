@@ -116,6 +116,10 @@
                             <li>
                                 <router-link to="/tools/drawingManager">绘图</router-link>
                             </li>
+                            <li>
+                                <router-link to="/tools/toolWrapper">工具包装器</router-link>
+                            </li>
+                            
                         </ul>
                     </li>
                 </ul>
