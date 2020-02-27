@@ -60,11 +60,11 @@
     </bm-tool-wrapper>
 </template>
 <script>
-import BaiduToolWrapper from '@/components/baidu-map/tools/tool-wrapper'; //工具包装器
+import BaiduToolWrapper from '../tool-wrapper'; //工具包装器
 import BuiduDrawingIcon from './drawing-icon'; //图形绘制工具
-import BaiduMapPolyline from '@/components/baidu-map/overlays/polyline'; //线条覆盖物
-import BaiduMapCircle from '@/components/baidu-map/overlays/circle'; //圆型覆盖物
-import BaiduMapPolygon from '@/components/baidu-map/overlays/polygon'; //多边形覆盖物
+import BaiduMapPolyline from '../../overlays/polyline'; //线条覆盖物
+import BaiduMapCircle from '../../overlays/circle'; //圆型覆盖物
+import BaiduMapPolygon from '../../overlays/polygon'; //多边形覆盖物
 
 export default {
     name: 'drawing-manager',
