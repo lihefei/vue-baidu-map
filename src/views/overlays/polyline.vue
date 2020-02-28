@@ -44,7 +44,7 @@ export default {
     },
     computed: {},
     methods: {
-        mapReady(BMap, map) {
+        mapReady({ BMap, map }) {
             console.log(BMap, map);
         }
     }

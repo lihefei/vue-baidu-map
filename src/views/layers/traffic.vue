@@ -16,7 +16,7 @@
 <script>
 import BaiduMap from '@/components/baidu-map/map/map'; //地图
 import BuiduTraffic from '@/components/baidu-map/layers/traffic'; //路况叠加层
-import BuiduControl from '@/components/baidu-map/controls/control'; //自定义版权控制层
+import BuiduControl from '@/components/baidu-map/controls/control'; //自定义控制层
 
 export default {
     name: '',
@@ -34,7 +34,7 @@ export default {
     },
     computed: {},
     methods: {
-        mapReady(BMap, map) {
+        mapReady({BMap, map}) {
             console.log(BMap, map);
         }
     }
