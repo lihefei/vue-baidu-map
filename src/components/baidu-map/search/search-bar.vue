@@ -115,6 +115,7 @@ export default {
         width: $size;
         height: $size;
         right: $size;
+        background-color: #fff;
         transform: translate(0, -($size)/2);
         cursor: pointer;
         &::before,
