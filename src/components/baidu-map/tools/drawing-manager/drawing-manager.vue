@@ -148,7 +148,9 @@ export default {
         }
     },
     created() {
-         this.mapConfig.drawingType = this.drawingType;
+        this.mapConfig.BMap = this.BMap;
+        this.mapConfig.map = this.map;
+        this.mapConfig.drawingType = this.drawingType;
          if (this.drawingType !== 'hander' && this.defaultDrawing) {
              let drawingMode =  this.drawingType; 
              let data = JSON.parse(JSON.stringify(this.defaultDrawing));

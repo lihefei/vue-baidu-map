@@ -60,7 +60,6 @@ export default {
     },
     watch: {
         map(map) {
-            debugger
             this.mapConfig.map = map;
         },
         BMap(BMap) {
@@ -78,6 +77,8 @@ export default {
         }
     },
     mounted() {
+        this.mapConfig.map = this.map;
+        this.mapConfig.BMap = this.BMap;
         this.mapConfig.traffic.visible = this.traffic;
         this.mapConfig.mapType.visible = this.mapType;
     },
