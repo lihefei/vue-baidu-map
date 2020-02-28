@@ -137,11 +137,11 @@ export default {
         },
         drawingType(val) {
             this.mapConfig.drawingType = val;
+            this.switchTypeClick(val);
             
         },
         'mapConfig.drawingType': function(val) {
             if (this.mapConfig.map) {
-                this.switchTypeClick(val);
                 this.enableMapDragging(val === 'hander');
             }
             
