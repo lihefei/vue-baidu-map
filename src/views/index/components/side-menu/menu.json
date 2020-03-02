@@ -1,0 +1,127 @@
+[
+    {
+        "title": "地图",
+        "url": "/map",
+        "icon": "map"
+    },
+    {
+        "title": "覆盖物",
+        "icon": "overlays",
+        "children": [
+            {
+                "title": "标记",
+                "url": "/overlays/marker"
+            },
+            {
+                "title": "标签",
+                "url": "/overlays/label"
+            },
+            {
+                "title": "线段",
+                "url": "/overlays/polyline"
+            },
+            {
+                "title": "圆形",
+                "url": "/overlays/circle"
+            },
+            {
+                "title": "矩形",
+                "url": "/overlays/rectangle"
+            },
+            {
+                "title": "多边形",
+                "url": "/overlays/polygon"
+            },
+            {
+                "title": "行政区域",
+                "url": "/overlays/boundary"
+            },
+            {
+                "title": "海量点",
+                "url": "/overlays/pointCollection"
+            },
+            {
+                "title": "地面覆盖物",
+                "url": "/overlays/ground"
+            },
+            {
+                "title": "自定义覆盖物",
+                "url": "/overlays/overlay"
+            }
+        ]
+    },
+    {
+        "title": "控件",
+        "icon": "controls",
+        "children": [
+            {
+                "title": "缩放条",
+                "url": "/controls/navigation"
+            },
+            {
+                "title": "地图类型",
+                "url": "/controls/mapType"
+            },
+            {
+                "title": "本地定位",
+                "url": "/controls/geolocation"
+            },
+            {
+                "title": "城市列表",
+                "url": "/controls/cityList"
+            },
+            {
+                "title": "缩略地图",
+                "url": "/controls/overviewMap"
+            },
+            {
+                "title": "全景地图",
+                "url": "/controls/panorama"
+            },
+            {
+                "title": "标尺",
+                "url": "/controls/scale"
+            },
+            {
+                "title": "版权",
+                "url": "/controls/copyright"
+            },
+            {
+                "title": "自定义控制器",
+                "url": "/controls/control"
+            }
+        ]
+    },
+    {
+        "title": "右键菜单",
+        "icon": "mouse",
+        "children": [
+            {
+                "title": "菜单",
+                "url": "/contextMenu/contextMenu"
+            },
+            {
+                "title": "菜单项",
+                "url": "/contextMenu/contextMenuItem"
+            }
+        ]
+    },
+    {
+        "title": "工具",
+        "icon": "tools",
+        "children": [
+            {
+                "title": "绘图",
+                "url": "/tools/drawingManager"
+            },
+            {
+                "title": "工具包装器",
+                "url": "/tools/toolWrapper"
+            },
+            {
+                "title": "常用工具",
+                "url": "/tools/commonTools"
+            }
+        ]
+    }
+]

@@ -1,7 +1,7 @@
 <template>
     <div class="index container is-vertical">
         <header class="header">
-            <h3>百度地图</h3>
+            <h3>百度地图组件</h3>
         </header>
         <section class="container">
             <side-menu />
@@ -12,7 +12,7 @@
     </div>
 </template>
 <script>
-import SideMenu from './components/side-menu';
+import SideMenu from './components/side-menu/side-menu';
 export default {
     name: 'index',
     components: {
