@@ -92,6 +92,21 @@
             }
         ]
     },
+
+    {
+        "title": "叠加层",
+        "icon": "layers",
+        "children": [
+            {
+                "title": "瓦片",
+                "url": "/layers/tile"
+            },
+            {
+                "title": "交通流量",
+                "url": "/layers/traffic"
+            }
+        ]
+    },
     {
         "title": "搜索",
         "icon": "search",
