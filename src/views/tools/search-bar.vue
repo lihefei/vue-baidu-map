@@ -19,7 +19,7 @@
 <script>
 import BaiduMap from '@/components/baidu-map/map/map'; //地图
 import BuiduControl from '@/components/baidu-map/controls/control'; //自定义控制层
-import BuiduSearchBar from '@/components/baidu-map/search/search-bar'; //搜索条
+import BuiduSearchBar from '@/components/baidu-map/tools/search-bar'; //搜索条
 import BaiduMapMarker from '@/components/baidu-map/overlays/marker'; //marker标记
 
 export default {

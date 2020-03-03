@@ -16,7 +16,7 @@
 import BaiduToolWrapper from './tool-wrapper'; //工具包装器
 import BuiduTraffic from '../layers/traffic'; //路况叠加层
 export default {
-    name: '',
+    name: 'CommonTools',
     components: {
         'bm-tool-wrapper': BaiduToolWrapper,
         'bm-traffic': BuiduTraffic
@@ -53,6 +53,11 @@ export default {
                 mapType: {
                     icon: 'layer',
                     title: '地图',
+                    visible: false
+                },
+                bestViewport: {
+                    icon: 'controls',
+                    title: '最佳视角',
                     visible: false
                 }
             },

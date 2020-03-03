@@ -207,14 +207,7 @@ const routes = [
                     title: '自动完成'
                 }
             },
-            {
-                path: '/search/searchBar',
-                name: 'searchBar',
-                component: () => import('@/views/search/search-bar.vue'),
-                meta: {
-                    title: '搜索条'
-                }
-            },
+            
             {
                 path: '/contextMenu/contextMenu',
                 name: 'contextMenu',
@@ -231,15 +224,6 @@ const routes = [
                     title: '菜单项'
                 }
             },
-
-            {
-                path: '/tools/drawingManager',
-                name: 'drawingManager',
-                component: () => import('@/views/tools/drawing-manager.vue'),
-                meta: {
-                    title: '绘图'
-                }
-            },
             {
                 path: '/tools/toolWrapper',
                 name: 'toolWrapper',
@@ -254,6 +238,32 @@ const routes = [
                 component: () => import('@/views/tools/common-tools.vue'),
                 meta: {
                     title: '常用工具'
+                }
+            },
+            
+            {
+                path: '/tools/searchBar',
+                name: 'searchBar',
+                component: () => import('@/views/tools/search-bar.vue'),
+                meta: {
+                    title: '搜索条'
+                }
+            },
+            {
+                path: '/tools/drawingManager',
+                name: 'drawingManager',
+                component: () => import('@/views/tools/drawing-manager.vue'),
+                meta: {
+                    title: '绘图'
+                }
+            },
+
+            {
+                path: '/tools/bestViewport',
+                name: 'bestViewport',
+                component: () => import('@/views/tools/best-viewport.vue'),
+                meta: {
+                    title: '最佳视角'
                 }
             }
         ]

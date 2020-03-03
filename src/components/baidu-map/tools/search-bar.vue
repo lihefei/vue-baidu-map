@@ -15,9 +15,9 @@
 </bm-tool-wrapper>
 </template>
 <script>
-import BaiduToolWrapper from '../tools/tool-wrapper'; //工具包装器
-import BuiduAutoComplete from './auto-complete'; //自动完成
-import BuiduLocalSearch from './local-search'; //本地搜索
+import BaiduToolWrapper from './tool-wrapper'; //工具包装器
+import BuiduAutoComplete from '../search/auto-complete'; //自动完成
+import BuiduLocalSearch from '../search/local-search'; //本地搜索
 export default {
     name: 'bm-search-bar',
     components: {

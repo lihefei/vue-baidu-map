@@ -93,6 +93,20 @@
         ]
     },
     {
+        "title": "搜索",
+        "icon": "search",
+        "children": [
+            {
+                "title": "本地商圈",
+                "url": "/search/localSearch"
+            },
+            {
+                "title": "自动完成",
+                "url": "/search/autoComplete"
+            }
+        ]
+    },
+    {
         "title": "右键菜单",
         "icon": "mouse",
         "children": [
@@ -111,16 +125,24 @@
         "icon": "tools",
         "children": [
             {
-                "title": "绘图",
-                "url": "/tools/drawingManager"
-            },
-            {
                 "title": "工具包装器",
                 "url": "/tools/toolWrapper"
             },
             {
                 "title": "常用工具",
                 "url": "/tools/commonTools"
+            },
+            {
+                "title": "搜索条",
+                "url": "/tools/searchBar"
+            },
+            {
+                "title": "绘图",
+                "url": "/tools/drawingManager"
+            },
+            {
+                "title": "最佳视角",
+                "url": "/tools/bestViewport"
             }
         ]
     }
