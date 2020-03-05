@@ -58,6 +58,8 @@ export default {
             const { $parent, points, size, shape, color } = this;
 
             const { BMap, map } = $parent;
+            this.BMap = BMap;
+            this.map = map;
 
             let overlay = new BMap.PointCollection(
                 points.map(p => createPoint(BMap, p)),

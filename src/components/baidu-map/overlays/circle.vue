@@ -109,6 +109,7 @@ export default {
             } = this;
             const { BMap, map } = $parent;
             this.BMap = BMap;
+            this.map = map;
             let point = createPoint(BMap, center);
 
             let overlay = new BMap.Circle(point, radius, {

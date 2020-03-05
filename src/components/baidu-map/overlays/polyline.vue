@@ -48,10 +48,14 @@ export default {
             }
         },
         massClear(val) {
-            val ? this.originInstance.enableMassClear() : this.originInstance.disableMassClear();
+            val
+                ? this.originInstance.enableMassClear()
+                : this.originInstance.disableMassClear();
         },
         dragging(val) {
-            val ? this.originInstance.enableDragging() : this.originInstance.disableDragging();
+            val
+                ? this.originInstance.enableDragging()
+                : this.originInstance.disableDragging();
         },
         clicking() {
             this.reload();
@@ -60,9 +64,21 @@ export default {
     mounted() {},
     methods: {
         load() {
-            const { $parent, path, strokeColor, strokeWeight, strokeOpacity, strokeStyle, massClear, editing, clicking } = this;
+            const {
+                $parent,
+                path,
+                strokeColor,
+                strokeWeight,
+                strokeOpacity,
+                strokeStyle,
+                massClear,
+                editing,
+                clicking
+            } = this;
 
             const { BMap, map } = $parent;
+            this.BMap = BMap;
+            this.map = map;
             let pathPoint = path.map(p => createPoint(BMap, p));
             let overlay = new BMap.Polyline(pathPoint, {
                 strokeColor,

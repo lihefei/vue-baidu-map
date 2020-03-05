@@ -60,6 +60,8 @@ export default {
             const { $parent, name } = this;
 
             const { BMap, map } = $parent;
+            this.BMap = BMap;
+            this.map = map;
 
             const bdary = new BMap.Boundary();
 

@@ -151,6 +151,7 @@ export default {
             } = this;
             const { BMap, map } = $parent;
             this.BMap = BMap;
+            this.map = map;
             let point = createPoint(BMap, position);
 
             const overlay = new BMap.Marker(point, {

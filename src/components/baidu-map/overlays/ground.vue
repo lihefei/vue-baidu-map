@@ -47,6 +47,8 @@ export default {
             } = this;
 
             const { BMap, map } = $parent;
+            this.BMap = BMap;
+            this.map = map;
 
             let overlay = new BMap.GroundOverlay(createBounds(BMap, bounds), {
                 opacity,

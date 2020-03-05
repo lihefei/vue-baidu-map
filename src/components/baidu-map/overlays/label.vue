@@ -69,15 +69,26 @@ export default {
             deep: true
         },
         massClear(val) {
-            val ? this.originInstance.enableMassClear() : this.originInstance.disableMassClear();
+            val
+                ? this.originInstance.enableMassClear()
+                : this.originInstance.disableMassClear();
         }
     },
     mounted() {},
     methods: {
         load() {
-            const { $parent, content, position, offset, labelStyle, massClear } = this;
+            const {
+                $parent,
+                content,
+                position,
+                offset,
+                labelStyle,
+                massClear
+            } = this;
 
             const { BMap, map } = $parent;
+            this.BMap = BMap;
+            this.map = map;
 
             let overlay = new BMap.Label(content, {
                 position: createPoint(BMap, position),
