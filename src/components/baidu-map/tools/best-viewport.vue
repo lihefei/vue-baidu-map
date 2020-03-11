@@ -1,19 +1,19 @@
 <template>
-   <bm-tool-wrapper v-if="showButton"  :map="map" :BMap="BMap" >
-       <div  class="best-viewport" :class="{active: active}" @click="setBestViewportClick" >
+    <bm-tool-wrapper v-if="showButton" :map="map" :BMap="BMap">
+        <div class="best-viewport" :class="{active: active}" @click="setBestViewportClick">
             <i class="iconfont icon-location"></i>最佳视角
-       </div>
-   </bm-tool-wrapper>
+        </div>
+    </bm-tool-wrapper>
 </template>
 
 <script>
 import BaiduToolWrapper from './tool-wrapper'; //工具包装器
 export default {
-    name: 'CommonTools',
+    name: 'bm-best-viewport',
     components: {
-        'bm-tool-wrapper': BaiduToolWrapper,
+        'bm-tool-wrapper': BaiduToolWrapper
     },
-    
+
     props: {
         map: Object,
         BMap: Object,
@@ -51,7 +51,7 @@ export default {
                 }
             },
             active: false
-        }
+        };
     },
     watch: {
         map(map) {
@@ -70,7 +70,6 @@ export default {
         best(bool) {
             this.active = bool;
         }
-
     },
     mounted() {
         this.mapConfig.map = this.map;
@@ -85,13 +84,13 @@ export default {
          * @param {Array} points 坐标点数组
          */
         setBestViewport(points = []) {
-            debugger
-            if (this.mapConfig.map && points) { 
+            debugger;
+            if (this.mapConfig.map && points) {
                 const view = this.mapConfig.map.getViewport(points); //获取最佳视角
                 let zoom = view.zoom - 1; //获取最佳视角的缩放层级，减1更好适配边界问题
                 zoom > 20 && (zoom = 20); //如果最佳视角大于19级则等于19级
                 this.$emit('change', {
-                    center:  view.center,
+                    center: view.center,
                     zoom
                 });
                 this.mapConfig.map.setCenter(view.center);
@@ -105,11 +104,9 @@ export default {
             this.active = true;
             this.setBestViewport(this.mapConfig.points);
             this.$emit('click');
-            
         }
-        
     }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -127,5 +124,4 @@ export default {
 .active {
     color: #409eff;
 }
-
 </style>

@@ -25,7 +25,6 @@ export default {
 .tool-wrapper {
     display: flex;
     align-items: center;
-    min-width: 50px;
     min-height: 32px;
     border-radius: 2px;
     background-color: #fff;

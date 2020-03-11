@@ -67,7 +67,7 @@ import BaiduMapCircle from '../../overlays/circle'; //圆型覆盖物
 import BaiduMapPolygon from '../../overlays/polygon'; //多边形覆盖物
 
 export default {
-    name: 'drawing-manager',
+    name: 'bm-drawing-manager',
     components: {
         'bm-tool-wrapper': BaiduToolWrapper,
         'bm-drawing-icon': BuiduDrawingIcon,
@@ -151,11 +151,16 @@ export default {
         this.mapConfig.BMap = this.BMap;
         this.mapConfig.map = this.map;
         this.mapConfig.drawingType = this.drawingType;
+        this.map && this.setMapCursor(this.drawingType)
          if (this.drawingType !== 'hander' && this.defaultDrawing) {
              let drawingMode =  this.drawingType; 
              let data = JSON.parse(JSON.stringify(this.defaultDrawing));
              Object.assign(this.mapConfig[drawingMode], data);
          }
+    },
+    beforeDestroy() {
+        this.setMapCursor('hander');
+        this.enableMapDragging(true);
     },
     methods: {
         /**

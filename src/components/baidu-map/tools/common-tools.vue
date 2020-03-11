@@ -16,7 +16,7 @@
 import BaiduToolWrapper from './tool-wrapper'; //工具包装器
 import BuiduTraffic from '../layers/traffic'; //路况叠加层
 export default {
-    name: 'CommonTools',
+    name: 'bm-common-tools',
     components: {
         'bm-tool-wrapper': BaiduToolWrapper,
         'bm-traffic': BuiduTraffic
