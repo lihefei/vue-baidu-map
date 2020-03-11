@@ -207,7 +207,7 @@ const routes = [
                     title: '自动完成'
                 }
             },
-            
+
             {
                 path: '/contextMenu/contextMenu',
                 name: 'contextMenu',
@@ -240,7 +240,7 @@ const routes = [
                     title: '常用工具'
                 }
             },
-            
+
             {
                 path: '/tools/searchBar',
                 name: 'searchBar',
@@ -264,6 +264,14 @@ const routes = [
                 component: () => import('@/views/tools/best-viewport.vue'),
                 meta: {
                     title: '最佳视角'
+                }
+            },
+            {
+                path: '/tools/floorSwitch',
+                name: 'floorSwitch',
+                component: () => import('@/views/tools/floor-switch.vue'),
+                meta: {
+                    title: '楼层切换'
                 }
             }
         ]

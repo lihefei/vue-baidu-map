@@ -158,6 +158,10 @@
             {
                 "title": "最佳视角",
                 "url": "/tools/bestViewport"
+            },
+            {
+                "title": "楼层切换",
+                "url": "/tools/floorSwitch"
             }
         ]
     }
