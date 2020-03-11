@@ -162,7 +162,7 @@ export default {
 
                     let script = document.createElement('script');
                     global.document.body.appendChild(script);
-                    script.src = `https://api.map.baidu.com/api?v=2.0&ak=${ak}&callback=_initBaiduMap`;
+                    script.src = `https://api.map.baidu.com/api?v=3.0&ak=${ak}&callback=_initBaiduMap`;
                 });
 
                 return global.BMap._preloader;
@@ -251,7 +251,7 @@ export default {
             }
         },
         setMaxZoom(zoom) {
-            window.BMAP_NORMAL_MAP.k.$b = window.BMAP_NORMAL_MAP.k.maxZoom = window.BMAP_PERSPECTIVE_MAP.k.maxZoom = window.BMAP_SATELLITE_MAP.k.maxZoom = window.BMAP_SATELLITE_MAP.k.maxZoom = window.BMAP_NORMAL_MAP.k.$b = window.BMAP_PERSPECTIVE_MAP.k.$b = window.BMAP_SATELLITE_MAP.k.$b = window.BMAP_HYBRID_MAP.k.$b = zoom;
+            window.BMAP_NORMAL_MAP.m.P3 = window.BMAP_NORMAL_MAP.m.pc = window.BMAP_NORMAL_MAP.m.maxZoom = window.BMAP_PERSPECTIVE_MAP.m.P3 = window.BMAP_PERSPECTIVE_MAP.m.pc = window.BMAP_PERSPECTIVE_MAP.m.maxZoom = window.BMAP_SATELLITE_MAP.m.P3 = window.BMAP_SATELLITE_MAP.m.pc = window.BMAP_SATELLITE_MAP.m.maxZoom = window.BMAP_HYBRID_MAP.m.P3 = window.BMAP_HYBRID_MAP.m.pc = window.BMAP_HYBRID_MAP.m.maxZoom = zoom;
             this.map.setMaxZoom(zoom);
         }
     }
