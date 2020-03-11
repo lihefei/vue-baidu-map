@@ -3,33 +3,23 @@
         <baidu-map
             ref="BDMap"
             ak="S7gxefmASouTllUyjE71hWV3"
+            :maxZoom="23"
             :center="mapConfig.center"
             :zoom="mapConfig.zoom"
             @ready="mapReady"
         >
             <bm-control anchor="BMAP_ANCHOR_TOP_LEFT">
                 <bm-floor-switch
-                    :total="50"
-                    :current-floor="5"
-                    :pager-count="7"
-                    :show-jumper="true"
-                />
-            </bm-control>
-
-            <bm-control anchor="BMAP_ANCHOR_TOP_LEFT" :offset="{height: 80}">
-                <bm-floor-switch
-                    :floors="[-3, -2, -1, 1, 3, 5, 7,  9, 10, 12, 14, 16, 18, 20, 22, 24]"
-                    :current-floor="1"
+                    v-if="map && BMap && tileList.length"
+                    :map="map"
+                    :BMap="BMap"
+                    :list="floors"
+                    :current-page="floor"
                     :pager-count="8"
+                    :tile-list="tileList"
                     mode="vertical"
                     suffix="F"
-                    @prev-click="prevClick"
-                    @next-click="nextClick"
-                    @prev-quick-click="prevQuickClick"
-                    @next-quick-click="nextQuickClick"
-                    @floor-click="floorClick"
                     @current-change="currentChange"
-                    @jumpe="floorJumpe"
                 />
             </bm-control>
         </baidu-map>
@@ -38,7 +28,7 @@
 <script>
 import BaiduMap from '@/components/baidu-map/map/map'; //地图
 import BuiduControl from '@/components/baidu-map/controls/control'; //自定义控制层
-import BuiduFloorSwitch from '@/components/baidu-map/tools/floor-switch/floor-switch'; //楼层切换
+import BuiduFloorSwitch from '@/components/baidu-map/tools/floor-switch'; //楼层切换
 
 export default {
     name: '',
@@ -53,40 +43,59 @@ export default {
             map: null,
             BMap: null,
             mapConfig: {
-                center: { lng: 108.640996, lat: 19.065555 },
-                zoom: 16
+                center: { lng: 113.959454, lat: 22.537417 },
+                zoom: 19
             },
-            floors: 100,
-            floor: 1
+            floor: 1,
+            tileList: []
         };
     },
-    watch: {},
+    watch: {
+        floor() {
+            this.updateTileFloors();
+        }
+    },
+
+    mounted() {
+        this.updateTileFloors();
+    },
 
     methods: {
         mapReady({ BMap, map }) {
             this.map = map;
             this.BMap = BMap;
         },
-        prevClick(floor) {
-            console.log('上一楼', floor);
-        },
-        nextClick(floor) {
-            console.log('下一楼', floor);
-        },
-        floorClick(floor) {
-            console.log('楼层点击', floor);
-        },
-        floorJumpe(floor) {
-            console.log('跳转', floor);
-        },
-        prevQuickClick(floor) {
-            console.log('快速向前切换', floor);
-        },
-        nextQuickClick(floor) {
-            console.log('快速向后切换', floor);
-        },
+
         currentChange(floor, oldFloor) {
+            this.floor = floor;
             console.log('楼层切换', floor, '切换前楼层', oldFloor);
+        },
+        /**
+         * 更新楼层和瓦片数据
+         */
+        updateTileFloors() {
+            let data = [
+                { id: 10018, floors: [2, 3, 4] },
+                { id: 10033, floors: 1 }
+            ];
+
+            let floors = [];
+
+            this.tileList = data.map(item => {
+                let url = `http://139.9.62.21:9000/salvage/images/tiles/${item.id}/${this.floor}/{Z}/tile-{X}_{Y}.png`;
+
+                if (Array.isArray(item.floors)) {
+                    floors.push(...item.floors);
+                    floors = Array.from(new Set(floors));
+                } else if (typeof item.floors === 'number') {
+                    for (let i = 1; i <= item.floors; i++) {
+                        !floors.includes(i) && floors.push(i);
+                    }
+                }
+                return url;
+            });
+
+            this.floors = floors;
         }
     }
 };

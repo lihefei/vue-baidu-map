@@ -25,7 +25,7 @@ export default {
         },
         maxZoom: {
             type: Number,
-            default: 23
+            default: 19
         },
         mapType: {
             type: String,
@@ -103,8 +103,9 @@ export default {
             map.setMinZoom(val);
         },
         maxZoom(val) {
-            const { map } = this;
-            map.setMaxZoom(val);
+            //const { map } = this;
+            //map.setMaxZoom(val);
+            this.setMaxZoom(val);
         },
         highResolution() {
             this.reset();
@@ -195,7 +196,7 @@ export default {
             });
             this.map = map;
 
-            const { setMapOptions, zoom, getCenterPoint } = this;
+            const { setMapOptions, zoom, maxZoom, getCenterPoint } = this;
 
             setMapOptions();
             map.centerAndZoom(getCenterPoint(), zoom);
@@ -203,6 +204,7 @@ export default {
             bindEvents.call(this, map);
 
             this.$emit('ready', { BMap, map });
+            this.setMaxZoom(maxZoom);
         },
         setMapOptions() {
             const {
@@ -247,6 +249,10 @@ export default {
                 default:
                     return new BMap.Point();
             }
+        },
+        setMaxZoom(zoom) {
+            window.BMAP_NORMAL_MAP.k.$b = window.BMAP_NORMAL_MAP.k.maxZoom = window.BMAP_PERSPECTIVE_MAP.k.maxZoom = window.BMAP_SATELLITE_MAP.k.maxZoom = window.BMAP_SATELLITE_MAP.k.maxZoom = window.BMAP_NORMAL_MAP.k.$b = window.BMAP_PERSPECTIVE_MAP.k.$b = window.BMAP_SATELLITE_MAP.k.$b = window.BMAP_HYBRID_MAP.k.$b = zoom;
+            this.map.setMaxZoom(zoom);
         }
     }
 };

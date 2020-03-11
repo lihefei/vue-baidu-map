@@ -160,7 +160,11 @@
                 "url": "/tools/bestViewport"
             },
             {
-                "title": "楼层切换",
+                "title": "楼层分页器",
+                "url": "/tools/floorPagination"
+            },
+            {
+                "title": "楼层切换工具",
                 "url": "/tools/floorSwitch"
             }
         ]

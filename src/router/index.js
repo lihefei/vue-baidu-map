@@ -267,11 +267,19 @@ const routes = [
                 }
             },
             {
+                path: '/tools/floorPagination',
+                name: 'floorPagination',
+                component: () => import('@/views/tools/floor-pagination.vue'),
+                meta: {
+                    title: '楼层分页器'
+                }
+            },
+            {
                 path: '/tools/floorSwitch',
                 name: 'floorSwitch',
                 component: () => import('@/views/tools/floor-switch.vue'),
                 meta: {
-                    title: '楼层切换'
+                    title: '楼层切换工具'
                 }
             }
         ]
