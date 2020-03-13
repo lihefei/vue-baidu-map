@@ -260,6 +260,7 @@ export default {
 
 <style lang="scss" scoped>
 .map-container {
+    position: relative;
     height: 100%;
 
     .map {
