@@ -14,6 +14,7 @@
         <bm-overlay
             ref="customOverlay"
             :position="center2"
+            :offset="{ width: -30, height: -30}"
             class="custom-overlay"
             @initialize="overlayInit"
         >
@@ -28,6 +29,7 @@
                 <div>444444444444444444444444444</div>
             </popover>
         </bm-overlay>
+        <bm-marker :position="center2" />
     </baidu-map>
 </template>
 <script>
@@ -35,12 +37,14 @@ import BaiduMap from '@/components/baidu-map/map/map'; //地图
 import BuiduOverlay from '@/components/baidu-map/overlays/overlay'; //自定义覆盖物
 import Popover from './components/popover'; //自定义气泡
 import DeviceInfo from './components/device-info'; //设备信息
+import BaiduMapMarker from '@/components/baidu-map/overlays/marker'; //marker标记
 
 export default {
     name: '',
     components: {
         'baidu-map': BaiduMap,
         'bm-overlay': BuiduOverlay,
+        'bm-marker': BaiduMapMarker,
         Popover,
         DeviceInfo
     },

@@ -52,10 +52,22 @@ export default {
                 zoom: 16,
                 dragging: true,
                 drawingType: 'circle', //'polygon', 'rectangle', 'polyline'
-                defaultDrawing : {
+                drawingTypes: [
+                    'hander',
+                    'circle',
+                    'polygon',
+                    'rectangle',
+                    'polyline'
+                ],
+                defaultDrawing: {
                     center: { lng: 108.640996, lat: 19.065555 },
                     radius: 500,
-                    path: [{"lng":108.638571,"lat":19.071193},{"lng":108.646979,"lat":19.071193},{"lng":108.646979,"lat":19.067571},{"lng":108.638571,"lat":19.067571}]
+                    path: [
+                        { lng: 108.638571, lat: 19.071193 },
+                        { lng: 108.646979, lat: 19.071193 },
+                        { lng: 108.646979, lat: 19.067571 },
+                        { lng: 108.638571, lat: 19.067571 }
+                    ]
                 }
             }
         };
@@ -89,7 +101,7 @@ export default {
         drawingClick(type) {
             //this.mapConfig.dragging = (type === 'hander');
         },
-        
+
         circleComplete(data) {
             console.log(data);
         },

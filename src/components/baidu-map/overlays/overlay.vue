@@ -1,5 +1,7 @@
 <template>
-    <div><slot></slot></div>
+    <div>
+        <slot></slot>
+    </div>
 </template>
 <script>
 import commonMixin from '../base/mixins/common';
@@ -12,7 +14,16 @@ export default {
             type: String,
             default: 'floatPane'
         },
-        position: Object
+        position: Object,
+        offset: {
+            type: Object,
+            default() {
+                return {
+                    width: 0,
+                    height: 0
+                };
+            }
+        }
     },
     watch: {
         pane() {
@@ -25,6 +36,16 @@ export default {
         },
         'position.lat': function(val, oldVal) {
             if (val !== oldVal && val >= -90 && val <= 90) {
+                this.setPosition();
+            }
+        },
+        'offset.width': function(val, oldVal) {
+            if (val !== oldVal) {
+                this.setPosition();
+            }
+        },
+        'offset.height': function(val, oldVal) {
+            if (val !== oldVal) {
                 this.setPosition();
             }
         }
@@ -68,15 +89,19 @@ export default {
             map.addOverlay(overlay);
         },
         setPosition() {
-            let { BMap, $el, map, position } = this;
+            let { BMap, $el, map, position, offset } = this;
             let left = '0px';
             let top = '0px';
 
-            if (position && typeof position.lng === 'number' && typeof position.lat === 'number') {
+            if (
+                position &&
+                typeof position.lng === 'number' &&
+                typeof position.lat === 'number'
+            ) {
                 let point = createPoint(BMap, position);
                 let pixel = map.pointToOverlayPixel(point);
-                left = pixel.x + 'px';
-                top = pixel.y + 'px';
+                left = pixel.x + offset.width + 'px';
+                top = pixel.y + offset.height + 'px';
             }
 
             $el.style.setProperty('left', left);
