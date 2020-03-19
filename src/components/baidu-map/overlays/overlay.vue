@@ -100,8 +100,8 @@ export default {
             ) {
                 let point = createPoint(BMap, position);
                 let pixel = map.pointToOverlayPixel(point);
-                left = pixel.x + offset.width + 'px';
-                top = pixel.y + offset.height + 'px';
+                left = pixel.x + (offset.width || 0) + 'px';
+                top = pixel.y + (offset.height || 0) + 'px';
             }
 
             $el.style.setProperty('left', left);

@@ -1,5 +1,7 @@
 <template>
-    <div><slot></slot></div>
+    <div>
+        <slot></slot>
+    </div>
 </template>
 <script>
 import commonMixin from '../base/mixins/common';
@@ -12,14 +14,39 @@ export default {
             type: String,
             default: 'BMAP_ANCHOR_TOP_RIGHT'
         },
-        offset: Object
+        offset: {
+            type: Object,
+            default() {
+                return {
+                    width: 10,
+                    height: 10
+                };
+            }
+        }
     },
     watch: {
         anchor(val) {
             this.originInstance.setAnchor(val);
         },
-        offset(val) {
-            this.originInstance.setOffset(val);
+        'offset.width': function(val, oldVal) {
+            const { BMap, offset, originInstance } = this;
+            if (val !== oldVal) {
+                let size = createSize(BMap, {
+                    width: val,
+                    lat: offset.height || 10
+                });
+                originInstance.setOffset(size);
+            }
+        },
+        'offset.height': function(val, oldVal) {
+            const { BMap, offset, originInstance } = this;
+            if (val !== oldVal) {
+                let size = createSize(BMap, {
+                    width: offset.width || 10,
+                    height: val
+                });
+                originInstance.setOffset(size);
+            }
         }
     },
     mounted() {},
@@ -30,14 +57,12 @@ export default {
             class Control extends BMap.Control {
                 constructor() {
                     super();
-                    let defaultOffset = {
-                        width: 10,
-                        height: 10
-                    };
-                    
-                    let settingOffset = Object.assign({}, defaultOffset, offset);
+
                     this.defaultAnchor = global[anchor];
-                    this.defaultOffset = createSize(BMap, settingOffset);
+                    this.defaultOffset = createSize(BMap, {
+                        width: offset.width || 10,
+                        height: offset.height || 10
+                    });
                 }
                 /**
                  * 初始化控制器
@@ -53,7 +78,7 @@ export default {
                     return $el;
                 }
             }
-            
+
             this.originInstance = new Control();
             map.addControl(this.originInstance);
         }

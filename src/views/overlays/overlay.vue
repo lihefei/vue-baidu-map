@@ -7,14 +7,19 @@
         @zoomend="zoomend"
         @ready="mapReady"
     >
-        <bm-overlay :position="center" class="custom-overlay" @initialize="overlayInit">
+        <bm-overlay
+            ref="customOverlay1"
+            :position="center"
+            class="custom-overlay"
+            @initialize="overlayInit"
+        >
             <device-info />
         </bm-overlay>
 
         <bm-overlay
-            ref="customOverlay"
+            ref="customOverlay2"
             :position="center2"
-            :offset="{ width: -30, height: -30}"
+            :offset="{ height: -30}"
             class="custom-overlay"
             @initialize="overlayInit"
         >
@@ -68,7 +73,8 @@ export default {
             console.log(data);
         },
         zoomend() {
-            this.$refs.customOverlay.setPosition();
+            this.$refs.customOverlay1.setPosition();
+            this.$refs.customOverlay2.setPosition();
         }
     }
 };

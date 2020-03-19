@@ -8,7 +8,7 @@
     >
         <bm-marker
             :position="center"
-            :rotation="180"
+            :rotation="75"
             :icon="icon"
             :dragging="true"
             :label="{content: 'xxxxxx'}"
@@ -17,10 +17,9 @@
 
         <bm-marker
             :position="center2"
-            :rotation="180"
             :icon="icon"
             :dragging="true"
-            :label="{content: '用户张三', opts: {offset: {width: 24, height: -18, labelStyle}}}"
+            :label="label"
             @click="clickMap"
         />
     </baidu-map>
@@ -47,13 +46,16 @@ export default {
                     height: 48
                 }
             },
-            labelStyle: {
-                padding: '2px 8px 3px',
-                border: 0,
-                borderRadius: '2px',
-                color: '#fff',
-                backgroundColor: 'rgba(0,0,0, .5)',
-                transform: 'translate(-50%, 0)'
+            label: {
+                content: '用户张三',
+                opts: { offset: { width: 24, height: -24 } },
+                labelStyle: {
+                    border: '1px solid rgb(255, 255, 255)',
+                    padding: '2px 5px',
+                    boxShadow: 'rgba(0, 0, 0, 0.3) 0px 0px 5px',
+                    borderRadius: '2px',
+                    transform: 'translateX(-50%)'
+                }
             }
         };
     },
@@ -70,4 +72,15 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+::v-deep .BMapLabel:before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    border-style: solid;
+    border-width: 8px 6px 0;
+    border-color: #fff transparent;
+    -webkit-transform: translate(-50%, 8px);
+    transform: translate(-50%, 8px);
+}
 </style>

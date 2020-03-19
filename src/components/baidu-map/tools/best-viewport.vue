@@ -84,15 +84,15 @@ export default {
          * @param {Array} points 坐标点数组
          */
         setBestViewport(points = []) {
-            debugger;
             if (this.mapConfig.map && points) {
-                const view = this.mapConfig.map.getViewport(points); //获取最佳视角
+                let pointList = points.map(point => {
+                    return new this.mapConfig.BMap.Point(point.lng, point.lat);
+                });
+                const view = this.mapConfig.map.getViewport(pointList); //获取最佳视角
                 let zoom = view.zoom - 1; //获取最佳视角的缩放层级，减1更好适配边界问题
                 zoom > 20 && (zoom = 20); //如果最佳视角大于19级则等于19级
-                this.$emit('change', {
-                    center: view.center,
-                    zoom
-                });
+                this.$emit('change', view.center, zoom);
+
                 this.mapConfig.map.setCenter(view.center);
                 this.mapConfig.map.setZoom(zoom);
             }
