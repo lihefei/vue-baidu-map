@@ -55,7 +55,8 @@ export default {
                     boxShadow: 'rgba(0, 0, 0, 0.3) 0px 0px 5px',
                     borderRadius: '2px',
                     transform: 'translateX(-50%)'
-                }
+                },
+                labelClass: 'label-test'
             }
         };
     },
@@ -72,7 +73,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-::v-deep .BMapLabel:before {
+::v-deep .label-test:before {
     content: '';
     position: absolute;
     left: 50%;

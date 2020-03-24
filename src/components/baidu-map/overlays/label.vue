@@ -13,7 +13,8 @@ export default {
         massClear: Boolean,
         title: String,
         zIndex: Number,
-        labelStyle: {}
+        labelStyle: {},
+        labelClass: String
     },
     watch: {
         setContent(val, oldVal) {
@@ -72,6 +73,15 @@ export default {
             val
                 ? this.originInstance.enableMassClear()
                 : this.originInstance.disableMassClear();
+        },
+        labelClass(val) {
+            this.originInstance.ba &&
+                this.originInstance.ba.classList.forEach(clas => {
+                    if (clas !== 'BMapLabel') {
+                        this.originInstance.ba.classList.remove(clas);
+                    }
+                });
+            this.originInstance.ba.classList.add(val);
         }
     },
     mounted() {},
@@ -100,6 +110,13 @@ export default {
             this.originInstance = overlay;
             bindEvents.call(this, overlay);
             map.addOverlay(overlay);
+
+            this.labelClass &&
+                setTimeout(() => {
+                    overlay &&
+                        overlay.ba &&
+                        overlay.ba.classList.add(this.labelClass);
+                }, 0);
         }
     }
 };

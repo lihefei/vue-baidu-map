@@ -168,7 +168,22 @@ export default {
             });
 
             this.originInstance = overlay;
-            label && overlay && overlay.setLabel(createLabel(BMap, label));
+            if (label && overlay) {
+                let labelInstance = createLabel(BMap, label);
+                overlay.setLabel(labelInstance);
+                if (label.labelClass) {
+                    setTimeout(() => {
+                        if (labelInstance.ba) {
+                            labelInstance.ba.classList.forEach(clas => {
+                                if (clas !== 'BMapLabel') {
+                                    labelInstance.ba.classList.remove(clas);
+                                }
+                            });
+                            labelInstance.ba.classList.add(label.labelClass);
+                        }
+                    }, 0);
+                }
+            }
             overlay.setTop(top);
             overlay.setZIndex(zIndex);
             bindEvents.call(this, overlay);
