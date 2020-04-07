@@ -34,7 +34,8 @@
                 <div>444444444444444444444444444</div>
             </popover>
         </bm-overlay>
-        <bm-marker :position="center2" />
+        <bm-marker :position="center" />
+        <bm-marker :position="center2" @click="markerClick" />
     </baidu-map>
 </template>
 <script>
@@ -55,8 +56,8 @@ export default {
     },
     data() {
         return {
-            center: { lng: 108.640996, lat: 19.065555 },
-            center2: { lng: 108.440996, lat: 19.065555 },
+            center: { lng: 108.440996, lat: 19.065555 },
+            center2: { lng: 108.640996, lat: 19.065555 },
             zoom: 12,
             showProper: true
         };
@@ -73,8 +74,11 @@ export default {
             console.log(data);
         },
         zoomend() {
-            this.$refs.customOverlay1.setPosition();
-            this.$refs.customOverlay2.setPosition();
+            //this.$refs.customOverlay1.setPosition();
+            //this.$refs.customOverlay2.setPosition();
+        },
+        markerClick() {
+            this.showProper = true;
         }
     }
 };

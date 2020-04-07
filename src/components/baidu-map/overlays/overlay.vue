@@ -51,6 +51,9 @@ export default {
         }
     },
     mounted() {},
+    destroyed() {
+        this.map.removeEventListener('zoomend', this.setPosition);
+    },
     methods: {
         load() {
             const { BMap, map, $el, pane, setPosition } = this;
@@ -67,6 +70,9 @@ export default {
                         overlay: this
                     });
                     map.getPanes()[pane].appendChild($el);
+                    map.removeEventListener('zoomend', setPosition);
+                    map.addEventListener('zoomend', setPosition);
+
                     setPosition();
                     return $el;
                 }
