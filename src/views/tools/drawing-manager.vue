@@ -26,6 +26,7 @@
                     @polygoncomplete="polygonComplete"
                     @polylinecomplete="polylineComplete"
                     @drawingcomplete="drawingComplete"
+                    @clear="clearDrawing"
                 ></bm-drawing-manager>
             </bm-control>
         </baidu-map>
@@ -116,6 +117,9 @@ export default {
         },
         drawingComplete(data) {
             console.log(JSON.stringify(data));
+        },
+        clearDrawing(type) {
+            console.log(type);
         }
     }
 };

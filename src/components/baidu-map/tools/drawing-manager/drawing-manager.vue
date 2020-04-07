@@ -1,14 +1,16 @@
 <template>
     <bm-tool-wrapper v-if="map" :map="map" :BMap="BMap">
-        
         <div class="drawing-manager">
             <bm-drawing-icon
                 v-for="(type, index) in drawingTypes"
                 :type="type"
                 :index="index"
                 :class="{active: type === mapConfig.drawingType}"
+                :title="getTitle(type)"
                 @click="switchTypeClick"
             ></bm-drawing-icon>
+            <bm-drawing-icon type="clear" :title="getTitle('clear')" @click="clearOverlys"></bm-drawing-icon>
+
             <span class="drawing-tips" v-if="showTips">{{tipsText[mapConfig.drawingType]}}</span>
         </div>
         <bm-circle
@@ -138,25 +140,23 @@ export default {
         drawingType(val) {
             this.mapConfig.drawingType = val;
             this.switchTypeClick(val);
-            
         },
         'mapConfig.drawingType': function(val) {
             if (this.mapConfig.map) {
                 this.enableMapDragging(val === 'hander');
             }
-            
         }
     },
     created() {
         this.mapConfig.BMap = this.BMap;
         this.mapConfig.map = this.map;
         this.mapConfig.drawingType = this.drawingType;
-        this.map && this.setMapCursor(this.drawingType)
-         if (this.drawingType !== 'hander' && this.defaultDrawing) {
-             let drawingMode =  this.drawingType; 
-             let data = JSON.parse(JSON.stringify(this.defaultDrawing));
-             Object.assign(this.mapConfig[drawingMode], data);
-         }
+        this.map && this.setMapCursor(this.drawingType);
+        if (this.drawingType !== 'hander' && this.defaultDrawing) {
+            let drawingMode = this.drawingType;
+            let data = JSON.parse(JSON.stringify(this.defaultDrawing));
+            Object.assign(this.mapConfig[drawingMode], data);
+        }
     },
     beforeDestroy() {
         this.setMapCursor('hander');
@@ -168,22 +168,29 @@ export default {
          * @param {Number} type 绘制工具类型
          */
         switchTypeClick(type) {
-            
             this.mapConfig.drawingType = type;
             this.setMapCursor(type);
 
             this.mapConfig.continuousDrawing = false; //取消连续绘制状态
 
             if (type !== 'hander') {
-                this.resetDrawingData(); //重置绘制数据             
+                this.resetDrawingData(); //重置绘制数据
                 //console.log('开启' + type + '绘制模式');
             } else {
                 this.mapConfig.drawing = false;
                 this.mapConfig.continuousDrawing = false; //取消连续绘制
             }
 
-            this.$emit('click',type );
+            this.$emit('click', type);
         },
+        /**
+         * 清除绘制覆盖物
+         */
+        clearOverlys() {
+            this.resetDrawingData(); //重置绘制数据
+            this.$emit('clear', this.mapConfig.drawingType);
+        },
+
         /**
          * 设置地图鼠标样式
          * @param {Number} type 绘制工具类型
@@ -231,9 +238,8 @@ export default {
          * @param {Object} end 东南角坐标
          */
         getRectanglePath(start, end) {
-
             let rectanglePoints = [];
-            
+
             if (start && end) {
                 rectanglePoints = [
                     { ...start },
@@ -244,7 +250,7 @@ export default {
             }
 
             return rectanglePoints;
-        }, 
+        },
         /**
          * 地图上鼠标键按下
          */
@@ -259,8 +265,7 @@ export default {
                     this.mapConfig.circle.center = null;
                     this.mapConfig.circle.center = e.point;
                 } else if (drawingMode === 'rectangle') {
-                    this.mapConfig[drawingMode].path[0] =
-                        e.point;
+                    this.mapConfig[drawingMode].path[0] = e.point;
                 } else {
                     if (!this.mapConfig.continuousDrawing) {
                         this.mapConfig[drawingMode].path = [];
@@ -276,17 +281,18 @@ export default {
                 let drawingMode = this.mapConfig.drawingType;
 
                 if (drawingMode === 'circle') {
-                    this.mapConfig[drawingMode].radius = this.mapConfig.map.getDistance(
+                    this.mapConfig[
+                        drawingMode
+                    ].radius = this.mapConfig.map.getDistance(
                         this.mapConfig[drawingMode].center,
                         e.point
                     );
                 } else if (drawingMode === 'rectangle') {
-                    let path =  this.getRectanglePath(
+                    let path = this.getRectanglePath(
                         this.mapConfig[drawingMode].path[0],
                         e.point
                     );
                     this.mapConfig[drawingMode].path = path;
-
                 } else {
                     let path = this.mapConfig[drawingMode].path;
                     let len = path.length;
@@ -307,19 +313,20 @@ export default {
                 let drawingMode = this.mapConfig.drawingType;
 
                 if (drawingMode === 'circle' || drawingMode === 'rectangle') {
-
                     if (drawingMode === 'rectangle') {
                         let path = this.getRectanglePath(
                             this.mapConfig[drawingMode].path[0],
                             e.point
                         );
                         this.mapConfig[drawingMode].path = path;
-                    } 
+                    }
 
                     //console.log('结束' + drawingMode + '绘制模式');
-                    this.$emit(drawingMode + 'complete', this.mapConfig[drawingMode]);
+                    this.$emit(
+                        drawingMode + 'complete',
+                        this.mapConfig[drawingMode]
+                    );
                     this.exitDrawing();
-
                 } else {
                     //console.log('持续' + drawingMode + '绘制模式');
                     this.mapConfig[drawingMode].path.push(e.point);
@@ -334,10 +341,12 @@ export default {
             let drawingMode = this.mapConfig.drawingType;
 
             if (drawingMode === 'polygon' || drawingMode === 'polyline') {
-                    this.$emit(drawingMode + 'complete', this.mapConfig[drawingMode]);
-                    this.exitDrawing();
-                }
-            
+                this.$emit(
+                    drawingMode + 'complete',
+                    this.mapConfig[drawingMode]
+                );
+                this.exitDrawing();
+            }
         },
 
         /**
@@ -346,7 +355,24 @@ export default {
          */
         enableMapDragging(flag = true) {
             let map = this.mapConfig.map;
-            flag ? map.enableDragging() : map.disableDragging(); 
+            flag ? map.enableDragging() : map.disableDragging();
+        },
+        /**
+         * 获取title
+         * @param {String} type 类型
+         * @returns {String} 工具对应标题
+         */
+        getTitle(type = 'hander') {
+            let titleOptions = {
+                hander: '抓手',
+                circle: '圆形',
+                polygon: '多边形',
+                rectangle: '矩形',
+                polyline: '线条',
+                clear: '清除'
+            };
+
+            return titleOptions[type];
         }
     }
 };
