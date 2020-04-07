@@ -22,6 +22,15 @@
                     @current-change="currentChange"
                 />
             </bm-control>
+            <bm-control anchor="BMAP_ANCHOR_TOP_LEFT" :offset="{width: 100}">
+                设置楼层：
+                <input
+                    type="number"
+                    v-model="floorNumber"
+                    :min="floors[0]"
+                    :max="floors[floors.length - 1]"
+                />
+            </bm-control>
         </baidu-map>
     </div>
 </template>
@@ -46,13 +55,20 @@ export default {
                 center: { lng: 113.959454, lat: 22.537417 },
                 zoom: 19
             },
-            floor: 1,
-            tileList: []
+
+            floor: 1, //当前楼层
+            floors: [], //楼层数数组
+            tileList: [], //楼层瓦片url列表
+            floorNumber: 1
         };
     },
     watch: {
-        floor() {
+        floor(val) {
             this.updateTileFloors();
+            this.floorNumber = val;
+        },
+        floorNumber(val) {
+            this.floor = val * 1;
         }
     },
 
@@ -95,7 +111,7 @@ export default {
                 return url;
             });
 
-            this.floors = floors;
+            this.floors = floors.sort((n, m) => n - m);
         }
     }
 };

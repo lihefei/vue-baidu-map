@@ -2,7 +2,7 @@
     <bm-tool-wrapper :map="map" :BMap="BMap">
         <bm-floor-pagination
             :list="list"
-            :current-page="currentFloor"
+            :current-page="currentPage"
             :pager-count="pagerCount"
             :total="total"
             :show-jumper="showJumper"
@@ -36,7 +36,7 @@ export default {
         map: Object,
         BMap: Object,
         list: Array,
-        currentFloor: Number,
+        currentPage: Number,
         pagerCount: Number,
         total: Number,
         showJumper: Boolean,
