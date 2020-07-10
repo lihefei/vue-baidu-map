@@ -251,7 +251,8 @@ export default {
             }
         },
         setMaxZoom(zoom) {
-            window.BMAP_NORMAL_MAP.m.P3 = window.BMAP_NORMAL_MAP.m.pc = window.BMAP_NORMAL_MAP.m.maxZoom = window.BMAP_PERSPECTIVE_MAP.m.P3 = window.BMAP_PERSPECTIVE_MAP.m.pc = window.BMAP_PERSPECTIVE_MAP.m.maxZoom = window.BMAP_SATELLITE_MAP.m.P3 = window.BMAP_SATELLITE_MAP.m.pc = window.BMAP_SATELLITE_MAP.m.maxZoom = window.BMAP_HYBRID_MAP.m.P3 = window.BMAP_HYBRID_MAP.m.pc = window.BMAP_HYBRID_MAP.m.maxZoom = zoom;
+            window.BMAP_NORMAL_MAP.m.X3 = window.BMAP_NORMAL_MAP.m.mc = window.BMAP_NORMAL_MAP.m.maxZoom = window.BMAP_PERSPECTIVE_MAP.m.X3 = window.BMAP_PERSPECTIVE_MAP.m.mc = window.BMAP_PERSPECTIVE_MAP.m.maxZoom = window.BMAP_SATELLITE_MAP.m.X3 = window.BMAP_SATELLITE_MAP.m.mc = window.BMAP_SATELLITE_MAP.m.maxZoom = window.BMAP_HYBRID_MAP.m.X3 = window.BMAP_HYBRID_MAP.m.mc = window.BMAP_HYBRID_MAP.m.maxZoom = zoom;
+
             this.map.setMaxZoom(zoom);
         }
     }
