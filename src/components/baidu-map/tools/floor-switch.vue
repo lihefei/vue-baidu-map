@@ -17,7 +17,7 @@
             @jumpe="pageJumpe"
         />
 
-        <bm-tile v-for="tile in tileList" :tile-url-template="tile" />
+        <bm-tile v-for="tile in tileList" :tile-url-template="tile.url" :zIndex="tile.zIndex" />
     </bm-tool-wrapper>
 </template>
 
@@ -30,7 +30,7 @@ export default {
     components: {
         'bm-tool-wrapper': BaiduToolWrapper,
         'bm-floor-pagination': BaiduFloorPagination,
-        'bm-tile': BuiduTile
+        'bm-tile': BuiduTile,
     },
     props: {
         map: Object,
@@ -42,14 +42,14 @@ export default {
         showJumper: Boolean,
         mode: String,
         suffix: String,
-        tileList: Array
+        tileList: Array,
     },
     data() {
         return {
             mapConfig: {
                 map: null,
-                BMap: null
-            }
+                BMap: null,
+            },
         };
     },
     watch: {},
@@ -107,8 +107,8 @@ export default {
          */
         currentChange(page, oldPage) {
             this.$emit('current-change', page, oldPage);
-        }
-    }
+        },
+    },
 };
 </script>
 

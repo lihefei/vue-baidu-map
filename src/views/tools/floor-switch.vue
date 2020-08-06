@@ -44,7 +44,7 @@ export default {
     components: {
         'baidu-map': BaiduMap,
         'bm-control': BuiduControl,
-        'bm-floor-switch': BuiduFloorSwitch
+        'bm-floor-switch': BuiduFloorSwitch,
     },
 
     data() {
@@ -53,13 +53,13 @@ export default {
             BMap: null,
             mapConfig: {
                 center: { lng: 113.959454, lat: 22.537417 },
-                zoom: 19
+                zoom: 19,
             },
 
             floor: 1, //当前楼层
             floors: [], //楼层数数组
             tileList: [], //楼层瓦片url列表
-            floorNumber: 1
+            floorNumber: 1,
         };
     },
     watch: {
@@ -69,7 +69,7 @@ export default {
         },
         floorNumber(val) {
             this.floor = val * 1;
-        }
+        },
     },
 
     mounted() {
@@ -91,14 +91,15 @@ export default {
          */
         updateTileFloors() {
             let data = [
-                { id: 10018, floors: [2, 3, 4] },
-                { id: 10033, floors: 1 }
+                { id: 10018, floors: [2, 3, 4], zIndex: 10 },
+                { id: 10033, floors: 1, zIndex: 1 },
             ];
 
             let floors = [];
 
-            this.tileList = data.map(item => {
+            this.tileList = data.map((item) => {
                 let url = `http://139.9.62.21:9000/salvage/images/tiles/${item.id}/${this.floor}/{Z}/tile-{X}_{Y}.png`;
+                let zIndex = item.zIndex;
 
                 if (Array.isArray(item.floors)) {
                     floors.push(...item.floors);
@@ -108,12 +109,12 @@ export default {
                         !floors.includes(i) && floors.push(i);
                     }
                 }
-                return url;
+                return { url, zIndex };
             });
 
             this.floors = floors.sort((n, m) => n - m);
-        }
-    }
+        },
+    },
 };
 </script>
 <style lang="scss" scoped>
