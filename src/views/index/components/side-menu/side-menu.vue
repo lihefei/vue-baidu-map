@@ -1,8 +1,8 @@
 <template>
     <aside class="aside" ref="asideMenu">
         <ul class="menu">
-            <li 
-                v-for="item in menu" 
+            <li
+                v-for="item in menu"
                 :class="{
                     submenu: item.children, 
                     'menu-item': !item.children,
@@ -10,15 +10,25 @@
                 }"
             >
                 <template v-if="item.children">
-                    <div class="submenu-title" @click="expandCollapse($event)"> <i class="iconfont icon-arrow-up"></i> <i :class="`iconfont icon-${item.icon}`"></i>{{ item.title }}</div>
+                    <div class="submenu-title" @click="expandCollapse($event)">
+                        <i class="iconfont icon-arrow-up"></i>
+                        <i :class="`iconfont icon-${item.icon}`"></i>
+                        {{ item.title }}
+                    </div>
                     <ul>
-                        <li v-for="subItem in item.children" :class="{active: active === subItem.url}">
+                        <li
+                            v-for="subItem in item.children"
+                            :class="{active: active === subItem.url}"
+                        >
                             <router-link :to="subItem.url">{{ subItem.title }}</router-link>
                         </li>
                     </ul>
                 </template>
                 <template v-else>
-                    <router-link :to="item.url"><i :class="`iconfont icon-${item.icon}`"></i>{{ item.title }}</router-link>
+                    <router-link :to="item.url">
+                        <i :class="`iconfont icon-${item.icon}`"></i>
+                        {{ item.title }}
+                    </router-link>
                 </template>
             </li>
         </ul>
@@ -67,9 +77,9 @@ export default {
             let arrowEle = targetEle.querySelector('[class*=icon-arrow]');
             let hide = window.getComputedStyle(nextEle).display === 'none';
 
-            nextEle.style.display = hide ? 'block' :'none';
-            
-            let classList =  arrowEle.classList;
+            nextEle.style.display = hide ? 'block' : 'none';
+
+            let classList = arrowEle.classList;
             if (hide) {
                 classList.remove('icon-arrow-down');
                 classList.add('icon-arrow-up');
@@ -87,8 +97,9 @@ export default {
     overflow: hidden;
     overflow-y: auto;
     border-right: 1px solid #c3ceec;
-    background-color: #dee7ff;
-    box-shadow: 3px 0 3px rgba(0,0,0,.3);
+    //background-color: #dee7ff;
+    background-color: #eff3ff;
+    box-shadow: 3px 0 3px rgba(0, 0, 0, 0.3);
     ul {
         padding: 0;
     }
@@ -104,9 +115,10 @@ export default {
                 background-color: $color;
             }
         }
-        .submenu { 
+        .submenu {
             ul {
-                background-color: #d1deff;
+                //background-color: #d1deff;
+                background-color: #fff;
             }
         }
         .submenu-title,
@@ -121,7 +133,6 @@ export default {
             &:hover {
                 background-color: rgba(255, 255, 255, 0.5);
             }
-
         }
 
         .iconfont {
@@ -130,7 +141,7 @@ export default {
             vertical-align: middle;
         }
 
-        .icon-arrow-up, 
+        .icon-arrow-up,
         .icon-arrow-down {
             float: right;
             pointer-events: none;
