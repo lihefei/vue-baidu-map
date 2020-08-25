@@ -144,6 +144,10 @@
                 "url": "/tools/toolWrapper"
             },
             {
+                "title": "小工具",
+                "url": "/tools/tools"
+            },
+            {
                 "title": "常用工具",
                 "url": "/tools/commonTools"
             },

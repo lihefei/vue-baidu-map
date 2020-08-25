@@ -14,14 +14,20 @@ export default {
         strokeStyle: String,
         massClear: Boolean,
         editing: Boolean,
-        clicking: Boolean
+        clicking: Boolean,
+        icons: {
+            type: Array,
+            default() {
+                return [];
+            },
+        },
     },
     watch: {
         path: {
             handler(val, oldVal) {
                 this.reload();
             },
-            deep: true
+            deep: true,
         },
         strokeColor(val, oldVal) {
             const { originInstance } = this;
@@ -59,7 +65,13 @@ export default {
         },
         clicking() {
             this.reload();
-        }
+        },
+        icons: {
+            handler(val, oldVal) {
+                this.reload();
+            },
+            deep: true,
+        },
     },
     mounted() {},
     methods: {
@@ -73,27 +85,44 @@ export default {
                 strokeStyle,
                 massClear,
                 editing,
-                clicking
+                clicking,
+                icons,
             } = this;
 
             const { BMap, map } = $parent;
             this.BMap = BMap;
             this.map = map;
-            let pathPoint = path.map(p => createPoint(BMap, p));
-            let overlay = new BMap.Polyline(pathPoint, {
+            let pathPoint = path.map((p) => createPoint(BMap, p));
+            let options = {
                 strokeColor,
                 strokeWeight,
                 strokeOpacity,
                 strokeStyle,
                 massClear,
                 editing,
-                clicking
-            }); //创建线条
+                clicking,
+            };
+            if (icons.length) {
+                options.icons = icons.map((icon) => {
+                    let sy = new BMap.Symbol(
+                        window[icon.symbol.shape],
+                        icon.symbol.options
+                    );
+                    return new BMap.IconSequence(
+                        sy,
+                        icon.offset,
+                        icon.repeat,
+                        icon.fixedRotation
+                    );
+                });
+            }
+
+            let overlay = new BMap.Polyline(pathPoint, options); //创建线条
 
             this.originInstance = overlay;
             bindEvents.call(this, overlay);
             map.addOverlay(overlay);
-        }
-    }
+        },
+    },
 };
 </script>
