@@ -62,6 +62,7 @@ export default {
     mounted() {
         this.mapConfig.map = this.map;
         this.mapConfig.BMap = this.BMap;
+        this.mode = this.value;
     },
     methods: {
         toolClick() {
