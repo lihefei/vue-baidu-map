@@ -1,16 +1,40 @@
 <template>
-    <div class="tool" :class="{active: isActive}" :title="text" @click="toolClick">
+    <div
+        class="tool"
+        :class="{ active: isActive }"
+        :title="isActive ? '框选中，右键可退出框选状态' : text"
+        @click.stop="toolClick"
+    >
         <i class="iconfont icon-range-search"></i>
-        <span v-if="showText">&nbsp;{{text}}</span>
+        <span v-if="showText">&nbsp;{{ text }}</span>
+        <bm-polygon
+            v-if="mapConfig.map"
+            ref="rectangle"
+            :path="path"
+            strokeColor="red"
+            :strokeWeight="3"
+            :strokeOpacity="0.5"
+            strokeStyle="solid"
+            :massClear="false"
+        />
     </div>
 </template>
 <script>
+import BaiduMapPolygon from '../overlays/polygon'; //多边形覆盖物
 export default {
     name: 'bm-tool-range',
+    components: {
+        'bm-polygon': BaiduMapPolygon,
+    },
     props: {
         map: Object,
         BMap: Object,
-        value: Boolean,
+        path: {
+            type: Array,
+            default() {
+                return [];
+            },
+        },
         text: {
             type: String,
             default: '框选区域',
@@ -37,11 +61,11 @@ export default {
         BMap(BMap) {
             this.mapConfig.BMap = BMap;
         },
-        value(val) {
-            this.isActive = val;
-        },
         isActive(val) {
-            this.$emit('input', val);
+            if (!val && this.path.length) {
+                this.$emit('complete', { path: [...this.path] });
+            }
+            this.$emit('change', val);
         },
     },
     mounted() {
@@ -51,7 +75,9 @@ export default {
     methods: {
         toolClick() {
             this.isActive = !this.isActive;
-            this.$emit('change', this.isActive);
+        },
+        setEnable(val = true) {
+            this.isActive = val;
         },
     },
 };

@@ -5,7 +5,7 @@
             ak="S7gxefmASouTllUyjE71hWV3"
             :center="mapConfig.center"
             :zoom="mapConfig.zoom"
-            :dragging="mapConfig.areaSelection.drawing ? false : mapConfig.dragging"
+            :dragging="mapConfig.dragging"
             @ready="mapReady"
             @zoomend="mapZoom"
             @mousedown="mapMouseDown"
@@ -16,7 +16,13 @@
             <bm-control anchor="BMAP_ANCHOR_TOP_LEFT">
                 <bm-tool-wrapper :map="map" :BMap="BMap">
                     <!-- 地图模式 -->
-                    <bm-tool-mode v-model="mapConfig.mapMode" class="tool-item" :show-text="true" :map="map" :BMap="BMap" />
+                    <bm-tool-mode
+                        v-model="mapConfig.mapMode"
+                        class="tool-item"
+                        :show-text="true"
+                        :map="map"
+                        :BMap="BMap"
+                    />
                 </bm-tool-wrapper>
             </bm-control>
 
@@ -30,25 +36,28 @@
             <bm-control anchor="BMAP_ANCHOR_TOP_LEFT" :offset="{ width: 10, height: 100 }">
                 <bm-tool-wrapper :map="map" :BMap="BMap">
                     <!-- 全屏切换 -->
-                    <bm-tool-screen class="tool-item" @change="mapScreenfull($event, $refs.BDMap.$el)" />
+                    <bm-tool-screen
+                        class="tool-item"
+                        @change="mapScreenfull($event, $refs.BDMap.$el)"
+                    />
                 </bm-tool-wrapper>
             </bm-control>
 
             <bm-control anchor="BMAP_ANCHOR_TOP_LEFT" :offset="{ width: 10, height: 60 }">
                 <bm-tool-wrapper :map="map" :BMap="BMap">
                     <!-- 范围框选 -->
-                    <bm-tool-range v-model="mapConfig.areaSelection.drawing" class="tool-item" />
+                    <bm-tool-range
+                        ref="mapToolRange"
+                        :map="map"
+                        :BMap="BMap"
+                        :path="mapConfig.range.path"
+                        text="在地图上框选查询设备"
+                        class="tool-item"
+                        @change="mapToolRangeChange"
+                        @complete="mapToolRangeCompalte"
+                    />
                 </bm-tool-wrapper>
             </bm-control>
-            <bm-polygon
-                ref="rectangle"
-                :path="mapConfig.areaSelection.path"
-                strokeColor="red"
-                :strokeWeight="3"
-                :strokeOpacity="0.5"
-                strokeStyle="solid"
-                :massClear="true"
-            />
 
             <bm-control anchor="BMAP_ANCHOR_BOTTOM_LEFT" :offset="{ width: 80, height: 22 }">
                 <!-- 当前缩放级别 -->
@@ -92,19 +101,14 @@ export default {
                 mapMode: 'BMAP_NORMAL_MAP', //地图模式
                 dragging: true,
                 traffic: false, //交通状况
-                areaSelection: {
-                    drawing: false, //地图框选绘制状态
-                    dragging: false, //地图框选拖拽状态
+                range: {
+                    drawing: false, //地图范围框选绘制状态
                     path: [], //地图框选路径
                 },
             },
         };
     },
-    watch: {
-        'mapConfig.areaSelection.drawing': function(status) {
-            this.setMapCursor(!status && 'hander');
-        },
-    },
+    watch: {},
 
     methods: {
         mapReady({ BMap, map }) {
@@ -142,7 +146,8 @@ export default {
 
             //如果是抓手模式
             if (type === 'hander') {
-                cursor = 'url(https://api.map.baidu.com/images/openhand.cur) 8 8,default';
+                cursor =
+                    'url(https://api.map.baidu.com/images/openhand.cur) 8 8,default';
             }
 
             this.map.setDefaultCursor(cursor);
@@ -152,31 +157,32 @@ export default {
          * 地图上鼠标键按下
          */
         mapMouseDown(e) {
-            if (this.mapConfig.areaSelection.drawing) {
-                this.mapConfig.areaSelection.path[0] = e.point;
+            if (this.mapConfig.range.drawing) {
+                this.mapConfig.range.path[0] = e.point;
             }
         },
         /**
          * 地图上鼠标移动
          */
         mapMouseMove(e) {
-            if (this.mapConfig.areaSelection.drawing) {
-                let path = this.getRectanglePath(this.mapConfig.areaSelection.path[0], e.point);
-                this.mapConfig.areaSelection.path = path;
+            if (this.mapConfig.range.drawing) {
+                let path = this.getRectanglePath(
+                    this.mapConfig.range.path[0],
+                    e.point
+                );
+                this.mapConfig.range.path = path;
             }
         },
         /**
          * 地图上鼠标按键松开弹起
          */
         mapMouseUp(e) {
-            if (this.mapConfig.areaSelection.drawing) {
-                let path = this.getRectanglePath(this.mapConfig.areaSelection.path[0], e.point);
-                this.mapConfig.areaSelection.path = path;
-
-                console.log([...this.mapConfig.areaSelection.path]);
-
-                this.mapConfig.areaSelection.path = [];
-
+            if (this.mapConfig.range.drawing) {
+                let path = this.getRectanglePath(
+                    this.mapConfig.range.path[0],
+                    e.point
+                );
+                this.mapConfig.range.path = path;
                 this.exitDrawing();
             }
         },
@@ -184,7 +190,8 @@ export default {
          * 退出绘制状态
          */
         exitDrawing() {
-            this.mapConfig.areaSelection.drawing = false;
+            this.mapConfig.range.drawing = false;
+            this.$refs.mapToolRange.setEnable(false);
             this.setMapCursor('hander');
         },
 
@@ -197,10 +204,33 @@ export default {
             let rectanglePoints = [];
 
             if (start && end) {
-                rectanglePoints = [{ ...start }, { lng: end.lng, lat: start.lat }, { ...end }, { lng: start.lng, lat: end.lat }];
+                rectanglePoints = [
+                    { ...start },
+                    { lng: end.lng, lat: start.lat },
+                    { ...end },
+                    { lng: start.lng, lat: end.lat },
+                ];
             }
 
             return rectanglePoints;
+        },
+        /**
+         * 区域选择工具状态改变
+         * @param {Boolean} status 状态
+         */
+        mapToolRangeChange(status) {
+            this.mapConfig.range.drawing = status;
+            this.mapConfig.dragging = !status;
+            this.setMapCursor(!status && 'hander');
+        },
+
+        /**
+         * 区域选择绘制完成后
+         * @param {Object} data 数据
+         */
+        mapToolRangeCompalte(data) {
+            this.mapConfig.range.path = [];
+            alert(JSON.stringify(data));
         },
         /**
          * 地图Zoom改变
