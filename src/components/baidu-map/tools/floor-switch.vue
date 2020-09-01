@@ -1,6 +1,7 @@
 <template>
     <bm-tool-wrapper :map="map" :BMap="BMap">
         <bm-floor-pagination
+            v-show="showPager"
             :list="list"
             :current-page="currentPage"
             :pager-count="pagerCount"
@@ -43,6 +44,10 @@ export default {
         mode: String,
         suffix: String,
         tileList: Array,
+        showPager: {
+            type: Boolean,
+            default: true,
+        },
     },
     data() {
         return {
@@ -112,5 +117,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
