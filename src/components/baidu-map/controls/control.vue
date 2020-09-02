@@ -33,7 +33,7 @@ export default {
             if (val !== oldVal) {
                 let size = createSize(BMap, {
                     width: val,
-                    lat: offset.height || 10
+                    height: offset.height || 10
                 });
                 originInstance.setOffset(size);
             }
