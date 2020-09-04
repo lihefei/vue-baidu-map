@@ -7,11 +7,11 @@ export default {
     props: {
         transparentPng: {
             type: Boolean,
-            default: true
+            default: true,
         },
         tileUrlTemplate: String,
         copyright: Object,
-        zIndex: Number
+        zIndex: Number,
     },
     watch: {
         transparentPng() {
@@ -25,26 +25,45 @@ export default {
         },
         zIndex() {
             this.reload();
-        }
+        },
     },
     methods: {
         load() {
-            const { BMap, map, transparentPng, tileUrlTemplate, copyright, zIndex } = this;
+            const {
+                BMap,
+                map,
+                transparentPng,
+                tileUrlTemplate,
+                copyright,
+                zIndex,
+            } = this;
 
             this.originInstance = new BMap.TileLayer({
                 transparentPng,
-                tileUrlTemplate,
                 copyright: copyright && {
                     id: copyright.id,
                     content: copyright.content,
-                    bounds: copyright.bounds && createBounds(BMap, copyright.bounds)
+                    bounds:
+                        copyright.bounds &&
+                        createBounds(BMap, copyright.bounds),
                 },
-                zIndex
+                zIndex,
             });
 
+            this.originInstance.getTilesUrl = function (tileCoord, zoom) {
+                let x = tileCoord.x,
+                    y = tileCoord.y,
+                    z = zoom,
+                    url = tileUrlTemplate
+                        .replace('{X}', x)
+                        .replace('{Y}', y)
+                        .replace('{Z}', z);
+                return url;
+            };
+
             map.addTileLayer(this.originInstance);
-        }
+        },
     },
-    render() {}
+    render() {},
 };
 </script>
