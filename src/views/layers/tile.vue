@@ -11,7 +11,7 @@
         </bm-control>
         <bm-tile
             v-if="tileVisible"
-            tileUrlTemplate="http://139.9.198.4:9000/salvage/images/tiles/10033/1/{Z}/tile-{X}_{Y}.png"
+            tileUrlTemplate="http://lbsyun.baidu.com//jsdemo/demo/tiles/{Z}/tile{X}_{Y}.png"
         />
     </baidu-map>
 </template>
@@ -25,21 +25,21 @@ export default {
     components: {
         'baidu-map': BaiduMap,
         'bm-tile': BuiduTile,
-        'bm-control': BuiduControl
+        'bm-control': BuiduControl,
     },
     data() {
         return {
-            center: { lng: 108.640996, lat: 19.065555 },
+            center: { lng: 116.332782, lat: 40.007978 },
             zoom: 16,
-            tileVisible: true
+            tileVisible: true,
         };
     },
     computed: {},
     methods: {
         mapReady({ BMap, map }) {
             console.log(BMap, map);
-        }
-    }
+        },
+    },
 };
 </script>
 <style lang="scss" scoped></style>
