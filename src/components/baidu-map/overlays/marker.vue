@@ -10,7 +10,7 @@ import {
     createSize,
     createIcon,
     createPoint,
-    createLabel
+    createLabel,
 } from '../base/factory';
 export default {
     name: 'bm-marker',
@@ -22,61 +22,61 @@ export default {
         shadow: {},
         massClear: {
             type: Boolean,
-            default: true
+            default: true,
         },
         dragging: {
             type: Boolean,
-            default: false
+            default: false,
         },
         clicking: {
             type: Boolean,
-            default: true
+            default: true,
         },
         raiseOnDrag: {
             type: Boolean,
-            default: false
+            default: false,
         },
         draggingCursor: String,
         rotation: Number,
         title: String,
         top: {
             type: Boolean,
-            default: false
+            default: false,
         },
         zIndex: {
             type: Number,
-            default: 0
+            default: 0,
         },
-        label: Object
+        label: Object,
     },
     watch: {
-        'position.lng': function(val, oldVal) {
+        'position.lng': function (val, oldVal) {
             const { BMap, position, originInstance } = this;
             if (val !== oldVal && val >= -180 && val <= 180) {
                 let point = createPoint(BMap, { lng: val, lat: position.lat });
                 originInstance.setPosition(point);
             }
         },
-        'position.lat': function(val, oldVal) {
+        'position.lat': function (val, oldVal) {
             const { BMap, position, originInstance } = this;
             if (val !== oldVal && val >= -90 && val <= 90) {
                 let point = createPoint(BMap, { lng: position.lng, lat: val });
                 originInstance.setPosition(point);
             }
         },
-        'offset.width': function(val, oldVal) {
+        'offset.width': function (val, oldVal) {
             const { BMap, offset, originInstance } = this;
             if (val !== oldVal) {
                 let size = createSize(BMap, { width: val, lat: offset.height });
                 originInstance.setOffset(size);
             }
         },
-        'offset.height': function(val, oldVal) {
+        'offset.height': function (val, oldVal) {
             const { BMap, offset, originInstance } = this;
             if (val !== oldVal) {
                 let size = createSize(BMap, {
                     width: offset.width,
-                    height: val
+                    height: val,
                 });
                 originInstance.setOffset(size);
             }
@@ -89,7 +89,7 @@ export default {
                 originInstance &&
                     rotation &&
                     originInstance.setRotation(rotation);
-            }
+            },
         },
         massClear(val) {
             val
@@ -125,9 +125,12 @@ export default {
         zIndex(val) {
             this.originInstance.setZIndex(val);
         },
-        label() {
-            this.reload();
-        }
+        label: {
+            deep: true,
+            handler(val) {
+                this.reload();
+            },
+        },
     },
     mounted() {},
     methods: {
@@ -147,7 +150,7 @@ export default {
                 title,
                 top,
                 zIndex,
-                label
+                label,
             } = this;
             const { BMap, map } = $parent;
             this.BMap = BMap;
@@ -164,7 +167,7 @@ export default {
                 draggingCursor,
                 rotation,
                 shadow,
-                title
+                title,
             });
 
             this.originInstance = overlay;
@@ -174,7 +177,7 @@ export default {
                 if (label.labelClass) {
                     setTimeout(() => {
                         if (labelInstance.ba) {
-                            labelInstance.ba.classList.forEach(clas => {
+                            labelInstance.ba.classList.forEach((clas) => {
                                 if (clas !== 'BMapLabel') {
                                     labelInstance.ba.classList.remove(clas);
                                 }
@@ -189,7 +192,7 @@ export default {
             bindEvents.call(this, overlay);
 
             map.addOverlay(overlay);
-        }
-    }
+        },
+    },
 };
 </script>
