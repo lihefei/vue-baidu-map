@@ -1,5 +1,5 @@
 <template>
-    <div class="map-container">
+    <div class="map-container" :style="{ '--width': width, '--height': height }">
         <div ref="view" class="map">地图</div>
         <slot></slot>
     </div>
@@ -13,56 +13,64 @@ export default {
     props: {
         ak: String,
         center: {
-            type: [Object, String]
+            type: [Object, String],
         },
         zoom: {
             type: Number,
-            default: 10
+            default: 10,
         },
         minZoom: {
             type: Number,
-            default: 3
+            default: 3,
         },
         maxZoom: {
             type: Number,
-            default: 19
+            default: 19,
         },
         mapType: {
             type: String,
-            default: 'BMAP_NORMAL_MAP'
+            default: 'BMAP_NORMAL_MAP',
         },
         highResolution: {
             type: Boolean,
-            default: true
+            default: true,
         },
         autoResize: {
             type: Boolean,
-            default: true
+            default: true,
         },
         mapClick: {
             type: Boolean,
-            default: true
+            default: true,
         },
         dragging: {
             type: Boolean,
-            default: true
+            default: true,
         },
         inertialDragging: {
             type: Boolean,
-            default: true
+            default: true,
         },
         scrollWheelZoom: {
             type: Boolean,
-            default: true
+            default: true,
         },
         doubleClickZoom: {
             type: Boolean,
-            default: true
+            default: true,
         },
         pinchToZoom: {
             type: Boolean,
-            default: true
-        }
+            default: true,
+        },
+        width: {
+            type: String,
+            default: '100%',
+        },
+        height: {
+            type: String,
+            default: '100%',
+        },
     },
     data() {
         return {};
@@ -70,10 +78,7 @@ export default {
     watch: {
         center: function(val, oldVal) {
             const { map } = this;
-            if (
-                Object.prototype.toString.call(val).includes('String') &&
-                val !== oldVal
-            ) {
+            if (Object.prototype.toString.call(val).includes('String') && val !== oldVal) {
                 map.setCenter(val);
             }
         },
@@ -141,7 +146,7 @@ export default {
         autoResize(val) {
             const { map } = this;
             val ? map.enableAutoResize() : map.disableAutoResize();
-        }
+        },
     },
     mounted() {
         this.reset();
@@ -192,7 +197,7 @@ export default {
 
             const map = new BMap.Map(el, {
                 enableHighResolution: this.highResolution,
-                enableMapClick: this.mapClick
+                enableMapClick: this.mapClick,
             });
             this.map = map;
 
@@ -207,33 +212,16 @@ export default {
             this.setMaxZoom(maxZoom);
         },
         setMapOptions() {
-            const {
-                map,
-                minZoom,
-                maxZoom,
-                mapType,
-                dragging,
-                inertialDragging,
-                scrollWheelZoom,
-                doubleClickZoom,
-                pinchToZoom,
-                autoResize
-            } = this;
+            const { map, minZoom, maxZoom, mapType, dragging, inertialDragging, scrollWheelZoom, doubleClickZoom, pinchToZoom, autoResize } = this;
 
             minZoom && map.setMinZoom(minZoom);
             maxZoom && map.setMaxZoom(maxZoom);
             mapType && map.setMapType(global[mapType]);
             dragging ? map.enableDragging() : map.disableDragging();
-            scrollWheelZoom
-                ? map.enableScrollWheelZoom()
-                : map.disableScrollWheelZoom();
-            doubleClickZoom
-                ? map.enableDoubleClickZoom()
-                : map.disableDoubleClickZoom();
+            scrollWheelZoom ? map.enableScrollWheelZoom() : map.disableScrollWheelZoom();
+            doubleClickZoom ? map.enableDoubleClickZoom() : map.disableDoubleClickZoom();
 
-            inertialDragging
-                ? map.enableInertialDragging()
-                : map.disableInertialDragging();
+            inertialDragging ? map.enableInertialDragging() : map.disableInertialDragging();
 
             pinchToZoom ? map.enablePinchToZoom() : map.disablePinchToZoom();
             autoResize ? map.enableAutoResize() : map.disableAutoResize();
@@ -254,15 +242,16 @@ export default {
             window.BMAP_NORMAL_MAP.m.X3 = window.BMAP_NORMAL_MAP.m.mc = window.BMAP_NORMAL_MAP.m.maxZoom = window.BMAP_PERSPECTIVE_MAP.m.X3 = window.BMAP_PERSPECTIVE_MAP.m.mc = window.BMAP_PERSPECTIVE_MAP.m.maxZoom = window.BMAP_SATELLITE_MAP.m.X3 = window.BMAP_SATELLITE_MAP.m.mc = window.BMAP_SATELLITE_MAP.m.maxZoom = window.BMAP_HYBRID_MAP.m.X3 = window.BMAP_HYBRID_MAP.m.mc = window.BMAP_HYBRID_MAP.m.maxZoom = zoom;
 
             this.map.setMaxZoom(zoom);
-        }
-    }
+        },
+    },
 };
 </script>
 
 <style lang="scss" scoped>
 .map-container {
     position: relative;
-    height: 100%;
+    width: var(--width);
+    height: var(--height);
 
     .map {
         width: 100%;
