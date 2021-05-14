@@ -75,13 +75,13 @@ export default {
                 : this.originInstance.disableMassClear();
         },
         labelClass(val) {
-            this.originInstance.ba &&
-                this.originInstance.ba.classList.forEach(clas => {
+            this.originInstance.ca &&
+                this.originInstance.ca.classList.forEach(clas => {
                     if (clas !== 'BMapLabel') {
-                        this.originInstance.ba.classList.remove(clas);
+                        this.originInstance.ca.classList.remove(clas);
                     }
                 });
-            this.originInstance.ba.classList.add(val);
+            this.originInstance.ca.classList.add(val);
         }
     },
     mounted() {},
@@ -114,8 +114,8 @@ export default {
             this.labelClass &&
                 setTimeout(() => {
                     overlay &&
-                        overlay.ba &&
-                        overlay.ba.classList.add(this.labelClass);
+                        overlay.ca &&
+                        overlay.ca.classList.add(this.labelClass);
                 }, 0);
         }
     }
