@@ -5,13 +5,13 @@
                 v-for="(type, index) in drawingTypes"
                 :type="type"
                 :index="index"
-                :class="{active: type === mapConfig.drawingType}"
+                :class="{ active: type === mapConfig.drawingType }"
                 :title="getTitle(type)"
                 @click="switchTypeClick"
             ></bm-drawing-icon>
             <bm-drawing-icon type="clear" :title="getTitle('clear')" @click="clearOverlys"></bm-drawing-icon>
 
-            <span class="drawing-tips" v-if="showTips">{{tipsText[mapConfig.drawingType]}}</span>
+            <span class="drawing-tips" v-if="showTips">{{ tipsText[mapConfig.drawingType] }}</span>
         </div>
         <bm-circle
             ref="circle"
@@ -75,26 +75,26 @@ export default {
         'bm-drawing-icon': BuiduDrawingIcon,
         'bm-circle': BaiduMapCircle,
         'bm-polyline': BaiduMapPolyline,
-        'bm-polygon': BaiduMapPolygon
+        'bm-polygon': BaiduMapPolygon,
     },
     props: {
         map: Object,
         BMap: Object,
         drawingType: {
             type: String,
-            default: 'hander'
+            default: 'hander',
         },
         drawingTypes: {
             type: Array,
             default() {
                 return ['hander', 'circle', 'polygon', 'rectangle', 'polyline'];
-            }
+            },
         },
         defaultDrawing: Object,
         showTips: {
             type: Boolean,
-            default: false
-        }
+            default: false,
+        },
     },
     data() {
         return {
@@ -105,26 +105,26 @@ export default {
                 drawingType: 'hander', //绘制类型
                 continuousDrawing: false, //连续绘制状态
                 polyline: {
-                    path: []
+                    path: [],
                 },
                 polygon: {
-                    path: []
+                    path: [],
                 },
                 rectangle: {
-                    path: []
+                    path: [],
                 },
                 circle: {
                     center: { lng: 0, lat: 0 },
-                    radius: 0
-                }
+                    radius: 0,
+                },
             },
             tipsText: {
                 hander: '选择绘制图标，在地图上开始绘制',
                 circle: '按住鼠标拖动，松开完成绘制',
                 polyline: '单击鼠标连点，右键完成绘制',
                 rectangle: '按住鼠标拖动，松开完鼠标成绘制',
-                polygon: '单击鼠标连点，右键完成绘制'
-            }
+                polygon: '单击鼠标连点，右键完成绘制',
+            },
         };
     },
     watch: {
@@ -145,7 +145,17 @@ export default {
             if (this.mapConfig.map) {
                 this.enableMapDragging(val === 'hander');
             }
-        }
+        },
+        defaultDrawing: {
+            handler(value) {
+                let { center, path, radius } = value;
+                if (this.mapConfig.drawingType === 'circle') {
+                    this.mapConfig.circle.center = center;
+                    this.mapConfig.circle.radius = radius;
+                }
+            },
+            deep: true,
+        },
     },
     created() {
         this.mapConfig.BMap = this.BMap;
@@ -200,8 +210,7 @@ export default {
 
             //如果是抓手模式
             if (type === 'hander') {
-                cursor =
-                    'url(https://api.map.baidu.com/images/openhand.cur) 8 8,default';
+                cursor = 'url(https://api.map.baidu.com/images/openhand.cur) 8 8,default';
             }
 
             this.mapConfig.map.setDefaultCursor(cursor);
@@ -224,7 +233,7 @@ export default {
 
             this.$emit('drawingcomplete', {
                 drawingType: drawingMode,
-                ...this.mapConfig[drawingMode]
+                ...this.mapConfig[drawingMode],
             });
 
             this.mapConfig.drawing = false;
@@ -241,12 +250,7 @@ export default {
             let rectanglePoints = [];
 
             if (start && end) {
-                rectanglePoints = [
-                    { ...start },
-                    { lng: end.lng, lat: start.lat },
-                    { ...end },
-                    { lng: start.lng, lat: end.lat }
-                ];
+                rectanglePoints = [{ ...start }, { lng: end.lng, lat: start.lat }, { ...end }, { lng: start.lng, lat: end.lat }];
             }
 
             return rectanglePoints;
@@ -281,17 +285,9 @@ export default {
                 let drawingMode = this.mapConfig.drawingType;
 
                 if (drawingMode === 'circle') {
-                    this.mapConfig[
-                        drawingMode
-                    ].radius = this.mapConfig.map.getDistance(
-                        this.mapConfig[drawingMode].center,
-                        e.point
-                    );
+                    this.mapConfig[drawingMode].radius = this.mapConfig.map.getDistance(this.mapConfig[drawingMode].center, e.point);
                 } else if (drawingMode === 'rectangle') {
-                    let path = this.getRectanglePath(
-                        this.mapConfig[drawingMode].path[0],
-                        e.point
-                    );
+                    let path = this.getRectanglePath(this.mapConfig[drawingMode].path[0], e.point);
                     this.mapConfig[drawingMode].path = path;
                 } else {
                     let path = this.mapConfig[drawingMode].path;
@@ -314,18 +310,12 @@ export default {
 
                 if (drawingMode === 'circle' || drawingMode === 'rectangle') {
                     if (drawingMode === 'rectangle') {
-                        let path = this.getRectanglePath(
-                            this.mapConfig[drawingMode].path[0],
-                            e.point
-                        );
+                        let path = this.getRectanglePath(this.mapConfig[drawingMode].path[0], e.point);
                         this.mapConfig[drawingMode].path = path;
                     }
 
                     //console.log('结束' + drawingMode + '绘制模式');
-                    this.$emit(
-                        drawingMode + 'complete',
-                        this.mapConfig[drawingMode]
-                    );
+                    this.$emit(drawingMode + 'complete', this.mapConfig[drawingMode]);
                     this.exitDrawing();
                 } else {
                     //console.log('持续' + drawingMode + '绘制模式');
@@ -341,10 +331,7 @@ export default {
             let drawingMode = this.mapConfig.drawingType;
 
             if (drawingMode === 'polygon' || drawingMode === 'polyline') {
-                this.$emit(
-                    drawingMode + 'complete',
-                    this.mapConfig[drawingMode]
-                );
+                this.$emit(drawingMode + 'complete', this.mapConfig[drawingMode]);
                 this.exitDrawing();
             }
         },
@@ -369,12 +356,12 @@ export default {
                 polygon: '多边形',
                 rectangle: '矩形',
                 polyline: '线条',
-                clear: '清除'
+                clear: '清除',
             };
 
             return titleOptions[type];
-        }
-    }
+        },
+    },
 };
 </script>
 <style lang="scss" scoped>
@@ -397,7 +384,7 @@ export default {
         color: #666;
         font-size: 12px;
         background-color: #fbf6c2;
-	    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
     }
 }
 </style>
