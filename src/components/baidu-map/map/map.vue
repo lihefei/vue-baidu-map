@@ -76,25 +76,18 @@ export default {
         return {};
     },
     watch: {
-        center: function(val, oldVal) {
-            const { map } = this;
-            if (Object.prototype.toString.call(val).includes('String') && val !== oldVal) {
-                map.setCenter(val);
-            }
-        },
-        'center.lng': function(val, oldVal) {
-            const { BMap, map, center } = this;
-            if (val !== oldVal && val >= -180 && val <= 180) {
-                let point = new BMap.Point(val, center.lat);
-                map.setCenter(point);
-            }
-        },
-        'center.lat': function(val, oldVal) {
-            const { BMap, map, center } = this;
-            if (val !== oldVal && val >= -90 && val <= 90) {
-                let point = new BMap.Point(center.lng, val);
-                map.setCenter(point);
-            }
+        center: {
+            handler(val) {
+                const { BMap, map } = this;
+
+                if (Object.prototype.toString.call(val).includes('String')) {
+                    map.setCenter(val);
+                } else if (Object.prototype.toString.call(val).includes('Object')) {
+                    let point = new BMap.Point(val.lng, val.lat);
+                    map.setCenter(point);
+                }
+            },
+            deep: true,
         },
         zoom: function(val, oldVal) {
             const { map, minZoom, maxZoom } = this;
