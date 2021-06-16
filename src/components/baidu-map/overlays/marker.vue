@@ -6,12 +6,7 @@
 <script>
 import commonMixin from '../base/mixins/common';
 import bindEvents from '../base/bind-event';
-import {
-    createSize,
-    createIcon,
-    createPoint,
-    createLabel,
-} from '../base/factory';
+import { createSize, createIcon, createPoint, createLabel } from '../base/factory';
 export default {
     name: 'bm-marker',
     mixins: [commonMixin('overlay')],
@@ -50,28 +45,28 @@ export default {
         label: Object,
     },
     watch: {
-        'position.lng': function (val, oldVal) {
+        'position.lng': function(val, oldVal) {
             const { BMap, position, originInstance } = this;
             if (val !== oldVal && val >= -180 && val <= 180) {
                 let point = createPoint(BMap, { lng: val, lat: position.lat });
                 originInstance.setPosition(point);
             }
         },
-        'position.lat': function (val, oldVal) {
+        'position.lat': function(val, oldVal) {
             const { BMap, position, originInstance } = this;
             if (val !== oldVal && val >= -90 && val <= 90) {
                 let point = createPoint(BMap, { lng: position.lng, lat: val });
                 originInstance.setPosition(point);
             }
         },
-        'offset.width': function (val, oldVal) {
+        'offset.width': function(val, oldVal) {
             const { BMap, offset, originInstance } = this;
             if (val !== oldVal) {
                 let size = createSize(BMap, { width: val, lat: offset.height });
                 originInstance.setOffset(size);
             }
         },
-        'offset.height': function (val, oldVal) {
+        'offset.height': function(val, oldVal) {
             const { BMap, offset, originInstance } = this;
             if (val !== oldVal) {
                 let size = createSize(BMap, {
@@ -82,24 +77,20 @@ export default {
             }
         },
         icon: {
-            deep: true,
-            handler(val) {
-                const { BMap, originInstance, rotation } = this;
-                originInstance && originInstance.setIcon(createIcon(BMap, val));
-                originInstance &&
-                    rotation &&
-                    originInstance.setRotation(rotation);
+            handler(val, old) {
+                if (JSON.stringify(val) !== JSON.stringify(old)) {
+                    const { BMap, originInstance, rotation } = this;
+                    originInstance && originInstance.setIcon(createIcon(BMap, val));
+                    originInstance && rotation && originInstance.setRotation(rotation);
+                }
             },
+            deep: true,
         },
         massClear(val) {
-            val
-                ? this.originInstance.enableMassClear()
-                : this.originInstance.disableMassClear();
+            val ? this.originInstance.enableMassClear() : this.originInstance.disableMassClear();
         },
         dragging(val) {
-            val
-                ? this.originInstance.enableDragging()
-                : this.originInstance.disableDragging();
+            val ? this.originInstance.enableDragging() : this.originInstance.disableDragging();
         },
         clicking() {
             this.reload();
@@ -125,11 +116,21 @@ export default {
         zIndex(val) {
             this.originInstance.setZIndex(val);
         },
-        label: {
-            deep: true,
-            handler(val) {
-                this.reload();
-            },
+        'label.content': function(val) {
+            if (this.labelInstance) {
+                this.labelInstance.setContent(val);
+            }
+        },
+        'label.opts': function(val, old) {
+            if (JSON.stringify(val) !== JSON.stringify(old)) {
+                this.labelInstance = createLabel(this.BMap, this.label);
+                this.originInstance.setLabel(this.labelInstance);
+            }
+        },
+        'label.labelStyle': function(val, old) {
+            if (this.labelInstance && JSON.stringify(val) !== JSON.stringify(old)) {
+                this.labelInstance.setStyle(labelStyle);
+            }
         },
     },
     mounted() {},
@@ -172,17 +173,17 @@ export default {
 
             this.originInstance = overlay;
             if (label && overlay) {
-                let labelInstance = createLabel(BMap, label);
-                overlay.setLabel(labelInstance);
+                this.labelInstance = createLabel(BMap, label);
+                overlay.setLabel(this.labelInstance);
                 if (label.labelClass) {
                     setTimeout(() => {
-                        if (labelInstance.ca) {
-                            labelInstance.ca.classList.forEach((clas) => {
+                        if (this.labelInstance.ca) {
+                            this.labelInstance.ca.classList.forEach((clas) => {
                                 if (clas !== 'BMapLabel') {
                                     labelInstance.ca.classList.remove(clas);
                                 }
                             });
-                            labelInstance.ca.classList.add(label.labelClass);
+                            this.labelInstance.ca.classList.add(label.labelClass);
                         }
                     }, 0);
                 }
