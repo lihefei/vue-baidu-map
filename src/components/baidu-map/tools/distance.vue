@@ -666,6 +666,7 @@ export default {
                 baseZIndex: 3600000,
                 enableMassClear: this.enableMassClear,
             });
+            disObj.closeBtn.setTop(true);
             this.map.addOverlay(disObj.closeBtn);
             disObj.closeBtn.setTitle('清除本次测距');
             // 点击关闭按钮，绑定关闭按钮事件
@@ -855,6 +856,7 @@ export default {
                 zIndexFixed: true,
                 enableMassClear: this.enableMassClear,
             });
+            secPt.setTop(true);
             this.map.addOverlay(secPt);
             this.dots.push(secPt);
         },
