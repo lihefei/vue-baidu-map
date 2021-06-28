@@ -132,6 +132,16 @@ export default {
                 this.labelInstance.setStyle(labelStyle);
             }
         },
+        'label.labelClass': function(val) {
+            if (this.labelInstance && this.labelInstance.ca) {
+                this.originInstance.ca.classList.forEach((clas) => {
+                    if (clas !== 'BMapLabel') {
+                        this.originInstance.ca.classList.remove(clas);
+                    }
+                });
+                this.originInstance.ca.classList.add(val);
+            }
+        },
     },
     mounted() {},
     methods: {
